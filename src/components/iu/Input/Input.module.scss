@@ -1,0 +1,49 @@
+.InputWrapper {
+  position: relative;
+  width: fit-content;
+
+  .Input {
+    font-size: 20px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.2s;
+    border: 0;
+    width: 300px;
+  }
+
+  .outlined {
+    border: 2px solid rgb(184, 184, 184);
+    &:focus {
+      border-color: #197de3;
+    }
+  }
+
+  .standard {
+    border-bottom: 2px solid rgb(184, 184, 184);
+    border-radius: 0;
+
+    &:focus {
+      border-color: #197de3;
+    }
+  }
+
+  .placeholder {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    translate: 0 -50%;
+    transition: 0.2s;
+    font-size: 20px;
+    pointer-events: none;
+    color: rgb(145, 145, 145);
+  }
+
+  .focused {
+    font-size: 14px;
+    top: 0px;
+    color: #197de3;
+    padding: 0 5px;
+    background-color: rgb(255, 255, 255);
+  }
+}
