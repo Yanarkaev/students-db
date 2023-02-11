@@ -1,29 +1,37 @@
 .Button {
   border: none;
   border-radius: 10px;
-  font-family: "Inter";
   color: #fff;
   cursor: pointer;
+  padding: 10px 20px;
+  font-size: 20px;
+//   font-weight: 800;
 }
 .categories {
   background: #197de3;
   cursor: pointer;
   position: relative;
-  transition: 0.2s linear;
+  transition: 0.2s;
+  overflow: hidden;
+
+  &::before {
+    transition: 0.2s;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 10px;
+    background-color: #0524428b;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+  }
+
+  &:hover:before {
+    bottom: 0;
+  }
+
   &:hover {
     background: #1568bd;
-    &::before {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 10px;
-      background-color: #0524428b;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
   }
 }
 .exit {
