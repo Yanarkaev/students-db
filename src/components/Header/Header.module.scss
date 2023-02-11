@@ -1,0 +1,17 @@
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 10px 0;
+
+  .nav {
+    display: flex;
+    align-items: center;
+
+    button:not(:last-of-type) {
+      margin-right: 25px;
+    }
+  }
+}
