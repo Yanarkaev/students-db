@@ -1,0 +1,29 @@
+.container {
+  max-width: 700px;
+  text-align: center;
+  margin: 0 auto;
+  h1 {
+    font-size: 20px;
+    padding: 10px 0;
+    text-transform: uppercase;
+  }
+  .fullnameContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    .fullname {
+      width: 550px;
+    }
+    .select {
+      width: 100px;
+      height: 30px;
+      border-radius: 5px;
+      background-color: rgb(240, 240, 240);
+      border: none;
+    }
+  }
+  .inputGroups {
+    margin: 20px auto;
+    padding: 5px;
+  }
+}

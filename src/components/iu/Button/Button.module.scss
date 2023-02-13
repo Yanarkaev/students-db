@@ -5,7 +5,17 @@
   cursor: pointer;
   padding: 10px 20px;
   font-size: 20px;
-//   font-weight: 800;
+
+  &:disabled {
+    background-color: rgb(212, 212, 212);
+    color: #000;
+    cursor: no-drop;
+
+    &:hover {
+      background-color: rgb(212, 212, 212);
+      color: #000;
+    }
+  }
 }
 .categories {
   background: #197de3;
