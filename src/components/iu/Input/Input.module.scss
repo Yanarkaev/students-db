@@ -10,6 +10,7 @@
     transition: 0.2s;
     border: 0;
     width: 100%;
+    font-size: inherit;
   }
 
   .outlined {
@@ -34,16 +35,14 @@
     top: 50%;
     translate: 0 -50%;
     transition: 0.2s;
-    font-size: 20px;
     pointer-events: none;
     color: rgb(145, 145, 145);
   }
 
   .focused {
-    font-size: 14px;
+    font-size: 60%;
     top: 8px;
     color: #197de3;
     padding: 0 5px;
-    // background-color: rgb(255, 255, 255);
   }
 }
