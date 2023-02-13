@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Input } from "../../components/iu";
 import styles from "./Auth.module.scss";
+import { signInUser } from "./userSlice";
 
 const Auth = () => {
   const [data, setData] = useState({
@@ -8,12 +10,15 @@ const Auth = () => {
     password: "",
   });
 
+  const dispatch = useDispatch();
+
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(e.target.value);
   };
 
   const handleAuth = (e) => {
+    dispatch(signInUser(data));
     e.preventDefault();
   };
   return (
@@ -27,7 +32,7 @@ const Auth = () => {
           placeholder="Логин"
           onChange={handleData}
           variant="outlined"
-          type="email"
+          type="text"
           className={styles.input}
         />
         <Input
@@ -40,7 +45,9 @@ const Auth = () => {
           className={styles.input}
         />
 
-        <Button variant="enter" className={styles.button}>Войти</Button>
+        <Button variant="enter" className={styles.button}>
+          Войти
+        </Button>
       </form>
     </div>
   );
