@@ -8,17 +8,19 @@ export const Input = ({
   variant = "standard",
   className,
   onChange,
+  name,
 }) => {
   const [focus, setFocus] = useState(false);
   return (
     <div className={styles.InputWrapper}>
       <input
         type={type}
-        className={`${styles.Input} ${styles[variant]} ${className}`}
+        className={`${styles.Input} ${className} ${styles[variant]} `}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         value={value}
         onChange={onChange}
+        name={name}
       />
       <span
         className={`${styles.placeholder} ${

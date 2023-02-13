@@ -1,6 +1,6 @@
 .InputWrapper {
   position: relative;
-  width: fit-content;
+  // width: fit-content;
 
   .Input {
     font-size: 20px;
@@ -9,7 +9,7 @@
     outline: none;
     transition: 0.2s;
     border: 0;
-    width: 300px;
+    width: 100%;
   }
 
   .outlined {
