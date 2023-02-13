@@ -51,23 +51,23 @@ export const FilterBar = () => {
           <option value="">курс 6</option>
         </select>
 
-        <select name="" id="" className={styles.selectGender}>
+        <select name="" className={styles.selectGender}>
           <option value="">Мужской</option>
           <option value="">Женский</option>
         </select>
 
-        <select name="" id="" className={styles.selectForm}>
+        <select name="" className={styles.selectForm}>
           <option value="">Очно</option>
           <option value="">Заочно</option>
           <option value="">Очно-заочно</option>
         </select>
 
-        <select name="" id="" className={styles.selectType}>
+        <select name="" className={styles.selectType}>
           <option value="">Бюджет</option>
           <option value="">Контракт</option>
         </select>
 
-        <select name="" id="" className={styles.selectStatus}>
+        <select name="" className={styles.selectStatus}>
           <option value="">Принят</option>
           <option value="">Переведен</option>
           <option value="">Отчислен</option>
