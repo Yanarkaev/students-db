@@ -9,7 +9,6 @@ export const Input = ({
   className,
   name,
   onChange,
-  name,
 }) => {
   const [focus, setFocus] = useState(false);
   return (
