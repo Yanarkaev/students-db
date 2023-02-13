@@ -1,0 +1,90 @@
+.FilterBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+
+  .dateSelect {
+    min-height: 40px;
+    font-size: 20px;
+
+    div:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+
+    input {
+      &:hover {
+        background-color: rgb(225, 225, 225);
+      }
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span {
+        font-weight: 600;
+        font-size: 18px;
+        margin-right: 10px;
+      }
+
+      input {
+        width: 200px;
+        background-color: rgb(240, 240, 240);
+        border: 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .selects {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 500px;
+    align-items: center;
+
+    select:not(:last-of-type) {
+      margin-right: 10px;
+    }
+
+    select {
+      width: 150px;
+      font-size: 16px;
+      border: 0;
+      background-color: rgb(240, 240, 240);
+      padding: 10px;
+      min-height: 40px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 5px 0;
+      &:hover {
+        background-color: rgb(225, 225, 225);
+      }
+    }
+  }
+
+  .inputs {
+    align-items: center;
+    justify-content: space-between;
+
+    .filterInput:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+    .filterInput {
+      font-size: 16px;
+
+      input {
+        height: 40px;
+        padding: 10px;
+        border-width: 1px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
