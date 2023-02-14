@@ -14,8 +14,6 @@ export const AdminPage = () => {
     jobTitle: "",
   });
 
-  //   const fullnameRegex = /^[a-zA-Z'- ]+$/
-
   const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
     .length;
 
