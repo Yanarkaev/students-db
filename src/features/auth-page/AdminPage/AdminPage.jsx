@@ -5,7 +5,6 @@ import { signUpUser } from "./../userSlice";
 import styles from "./AdminPage.module.scss";
 
 export const AdminPage = () => {
-  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const [data, setData] = useState({
     fullname: "",
@@ -14,8 +13,6 @@ export const AdminPage = () => {
     department: "",
     jobTitle: "",
   });
-
-  //   const fullnameRegex = /^[a-zA-Z'- ]+$/
 
   const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
     .length;
@@ -26,22 +23,14 @@ export const AdminPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (data.fullname.split(" ").length === 3) {
-      setData({
-        fullname: data.fullname
-          .split(" ")
-          .map((el) => el[0] + el.slice(1))
-          .join(" "),
-      });
-    // }
-
-    // dispatch(signUpUser(data));
+    if (dataChecker) {
+      dispatch(signUpUser(data));
+    }
   };
 
   return (
     <div className={styles.AdminPage}>
       <form onSubmit={handleSubmit} className={styles.registerForm}>
-        {error && <div>{error}</div>}
         <h1>Регистрация работника</h1>
         <Input
           className={styles.input}
