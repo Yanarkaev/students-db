@@ -10,7 +10,7 @@ export const fetchStudents = createAsyncThunk(
   "students/fetchPosts",
   async (_, thunkAPI) => {
     try {
-      const response = await fetch("http://localhost:3001/");
+      const response = await fetch("http://localhost:3001/students");
       return response.json();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
