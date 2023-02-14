@@ -3,6 +3,7 @@ import { Input } from "./components/iu";
 import AddStudent from "./features/students/add-student/AddStudent";
 import { useStudents } from "./shared/hooks/useStudents";
 import Auth from "./features/auth-page/Auth";
+import { AdminPage } from "./features/auth-page/AdminPage/AdminPage";
 
 function App() {
   const [students, loading, error] = useStudents();
@@ -10,9 +11,10 @@ function App() {
   console.log(students, loading, error);
   return (
     <div className="App">
-      <Header />
+      {/* <Header />
       <Input placeholder="standard" variant="standard" />
-      <AddStudent />
+      <AddStudent /> */}
+      <AdminPage />
     </div>
   );
 }
