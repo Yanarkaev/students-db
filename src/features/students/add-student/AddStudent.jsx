@@ -10,8 +10,8 @@ function AddStudent() {
     faculty: "",
     course: "",
     group: "",
-    educationForm: "",
-    educationType: "",
+    educationForm: "Очно",
+    educationType: "Бюджет",
   });
 
   const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
@@ -64,6 +64,7 @@ function AddStudent() {
       </div>
       <div className={styles.inputGroups}>
         <Input
+          type="number"
           value={data.course}
           name="course"
           onChange={handleData}
@@ -72,27 +73,38 @@ function AddStudent() {
       </div>
       <div className={styles.inputGroups}>
         <Input
+          type="number"
           value={data.group}
           name="group"
           onChange={handleData}
           placeholder="ГРУППА"
         />
       </div>
-      <div className={styles.inputGroups}>
-        <Input
-          value={data.educationForm}
-          name="educationForm"
-          onChange={handleData}
-          placeholder="ФОРМА ОБУЧЕНИЯ"
-        />
-      </div>
-      <div className={styles.inputGroups}>
-        <Input
-          value={data.educationType}
-          name="educationType"
-          onChange={handleData}
-          placeholder="ТИП ОБУЧЕНИЯ"
-        />
+      <div className={styles.selectGroups}>
+        <label className={styles.label} htmlFor="eductionForm">
+          <span>Форма обучения</span>
+          <select
+            value={data.educationForm}
+            onChange={handleSelect}
+            id="eductionForm"
+            name="educationForm"
+          >
+            <option value="Очно">Очно</option>
+            <option value="Заочно">Заочно</option>
+          </select>
+        </label>
+        <label className={styles.label} htmlFor="eduction">
+          <span>Тип обучения</span>
+          <select
+            value={data.educationType}
+            onChange={handleSelect}
+            id="educationType"
+            name="educationType"
+          >
+            <option value="Бюджет">Бюджет</option>
+            <option value="Коммерция">Коммерция</option>
+          </select>
+        </label>
       </div>
       <Button disabled={dataChecker} onClick={handleClick} variant="categories">
         Добавить
