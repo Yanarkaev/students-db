@@ -12,7 +12,6 @@ function App() {
   console.log(students, loading, error);
   return (
     <div className="App">
-      <Header />
       <Input placeholder="standard" variant="standard" />
       <AddStudent />
       <Table columns={columns} rows={students} />

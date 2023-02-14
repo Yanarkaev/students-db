@@ -9,6 +9,7 @@ export const Input = ({
   className,
   name,
   onChange,
+  onBlur,
 }) => {
   const [focus, setFocus] = useState(false);
   return (
@@ -16,11 +17,12 @@ export const Input = ({
       <input
         type={type}
         className={`${styles.Input} ${className} ${styles[variant]} `}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
+        // onFocus={() => setFocus(true)}
+        // onBlur={() => setFocus(false)}
         value={value}
         onChange={onChange}
         name={name}
+        onBlur={onBlur}
       />
       <span
         className={`${styles.placeholder} ${

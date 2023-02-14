@@ -1,0 +1,19 @@
+.AdminPage {
+  .registerForm {
+    h1{
+        margin-bottom: 30px;
+    }
+
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+
+    .input{
+        font-size: 20px;
+        margin: 5px 0;
+    }
+    button {
+      margin-top: 20px;
+    }
+  }
+}
