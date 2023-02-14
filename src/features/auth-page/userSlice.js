@@ -9,12 +9,21 @@ const initialState = {
 //Регистрация пользователя(нужно дополнить структуру получаемых данных)
 export const signUpUser = createAsyncThunk(
   "user/post",
-  async ({}, thunkAPI) => {
+  async ({ fullname, login, password, department, jobTitle }, thunkAPI) => {
     try {
       const res = await fetch("/user/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          fullname,
+          login,
+          password,
+          department,
+          jobTitle,
+        }),
       });
       const data = await res.json();
       if (data.error) {
@@ -70,6 +79,7 @@ export const userSlice = createSlice({
       //Регистрация пользователя
       .addCase(signUpUser.pending, (state, action) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.loading = false;
@@ -77,7 +87,8 @@ export const userSlice = createSlice({
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.signUp = true;
+        // state.signUp = true;
+        state.error = null;
       })
       //Авторизация пользователя
       .addCase(signInUser.pending, (state, action) => {
