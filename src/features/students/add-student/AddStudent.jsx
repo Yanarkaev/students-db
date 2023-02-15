@@ -7,29 +7,38 @@ function AddStudent() {
   const [data, setData] = useState({
     fullname: "",
     gender: "Мужской",
+    department: "",
     faculty: "",
     course: "",
     group: "",
     educationForm: "Очно",
     educationType: "Бюджет",
+    changeDate: "",
+  });
+  const [dataStatus, setDataStatus] = useState({
+    title: "Принят",
+    from: "",
+    to: "",
   });
 
-  const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
-    .length;
-
+  // const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
+  //   .length;
+  console.log(data);
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addStudents(data));
+    dispatch(addStudents({ data: data, status: dataStatus }));
   };
 
   const handleSelect = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  const hadleStatus = (e, type) => {
+    setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
+  };
   return (
     <div className={styles.container}>
       <h1>Добавить студента</h1>
@@ -42,7 +51,7 @@ function AddStudent() {
           placeholder="ФИО"
         />
         <select
-          value={data.gener}
+          value={data.gender}
           onChange={handleSelect}
           className={styles.select}
           name="gender"
@@ -105,8 +114,45 @@ function AddStudent() {
             <option value="Коммерция">Коммерция</option>
           </select>
         </label>
+        <label className={styles.label} htmlFor="eduction">
+          <span>Статус студента</span>
+          <select
+            value={dataStatus.title}
+            onChange={hadleStatus}
+            id="title"
+            name="title"
+          >
+            <option value="Принят">Принят</option>
+            <option value="Перевод">Перевод</option>
+            <option value="Отчислен">Отчислен</option>
+          </select>
+        </label>
       </div>
-      <Button disabled={dataChecker} onClick={handleClick} variant="categories">
+      <Input
+        value={data.changeDate}
+        name="changeDate"
+        onChange={handleData}
+        type="date"
+      />
+      <div className={styles.inputGroups}>
+        {dataStatus.title === "Перевод" && (
+          <>
+            <Input
+              value={dataStatus.from}
+              name="from"
+              onChange={hadleStatus}
+              placeholder="Из"
+            />
+            <Input
+              value={dataStatus.to}
+              name="to"
+              onChange={hadleStatus}
+              placeholder="В"
+            />
+          </>
+        )}
+      </div>
+      <Button onClick={handleClick} variant="categories">
         Добавить
       </Button>
     </div>

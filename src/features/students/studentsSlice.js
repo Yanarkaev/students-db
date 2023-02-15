@@ -17,13 +17,29 @@ export const fetchStudents = createAsyncThunk(
     }
   }
 );
+export const fetchStudentsByStatus = createAsyncThunk(
+  "students/fetchStudentsByStatus",
+  async (status, thunkAPI) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/students/status/${status}`
+      );
+      return response.json();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const addStudents = createAsyncThunk(
   "students/addStudents",
   async (studentData, thunkAPI) => {
     try {
       const response = await fetch("http://localhost:3001/students/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify(studentData),
       });
       return response.json();
@@ -43,9 +59,20 @@ const studentsSlice = createSlice({
       })
       .addCase(fetchStudents.fulfilled, (state, action) => {
         state.loading = false;
-        state.students = state.students.concat(action.payload);
+        state.students = action.payload;
       })
       .addCase(fetchStudents.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchStudentsByStatus.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchStudentsByStatus.fulfilled, (state, action) => {
+        state.loading = false;
+        state.students = action.payload;
+      })
+      .addCase(fetchStudentsByStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
