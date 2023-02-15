@@ -8,13 +8,13 @@ export const Header = () => {
     <div className={styles.Header}>
       <div className={styles.nav}>
         <NavLink
-          to="/reports"
+          to="/addstud"
           end
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
         >
-          Отчеты
+          добавить студента
         </NavLink>
         <NavLink
           to="/reception"

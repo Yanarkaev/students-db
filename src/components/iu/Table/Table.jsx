@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import styles from "./Table.module.scss";
-
 export const Table = ({ columns, rows }) => {
   const [data, setData] = useState(rows);
 
   useEffect(() => {
     setData(rows);
   }, [rows]);
+  console.log("ROWS", rows);
+  if (!rows) {
+    return;
+  }
 
   return (
     <table className={styles.Table}>

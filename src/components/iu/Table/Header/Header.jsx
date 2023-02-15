@@ -1,50 +1,90 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../..";
+import {
+  fetchStudents,
+  fetchStudentsByStatus,
+} from "../../../../features/students/studentsSlice";
 import styles from "./Header.module.scss";
 
 export const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleClick = (type) => {
+    dispatch(fetchStudentsByStatus(type));
+  };
+  const handleReset = () => {
+    dispatch(fetchStudents());
+  };
   return (
     <div className={styles.Header}>
       <div className={styles.nav}>
         <NavLink
-          to="/reports"
+          to="/"
+          end
+          className={({ isActive }) =>
+            `${styles.navLink} ${isActive ? styles.activeLink : ""}`
+          }
+          onClick={() => handleReset()}
+        >
+          главная
+        </NavLink>
+        <NavLink
+          to="/addstud"
           end
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
         >
-          Отчеты
+          добавить студента
         </NavLink>
-        <NavLink
-          to="/reception"
+        <Button
+          variant="categories"
+          to="/"
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
+          onClick={() => handleClick("Принят")}
         >
           Прием
-        </NavLink>
+        </Button>
 
-        <NavLink
-          to="/transfer"
+        <Button
+          variant="categories"
+          to="/"
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
+          onClick={() => handleClick("Перевод")}
         >
           Перевод
-        </NavLink>
+        </Button>
+        <Button
+          variant="categories"
+          to="/"
+          className={({ isActive }) =>
+            `${styles.navLink} ${isActive ? styles.activeLink : ""}`
+          }
+          onClick={() => handleClick("Отчислен")}
+        >
+          Отчисление
+        </Button>
         <NavLink
-          to="/expulsion"
+          variant="enter"
+          to="/admin"
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
         >
-          Отчисление
+          Админка
         </NavLink>
       </div>
 
       <div className={styles.auth}>
-        <Button variant="enter">Войти</Button>
+        <Button variant="enter" onClick={() => navigate("/admin")}>
+          Войти
+        </Button>
       </div>
     </div>
   );
