@@ -6,7 +6,7 @@ export const Table = ({ columns, rows }) => {
   useEffect(() => {
     setData(rows);
   }, [rows]);
-  console.log("ROWS", rows);
+
   if (!rows) {
     return;
   }

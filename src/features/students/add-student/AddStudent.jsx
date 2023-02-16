@@ -23,7 +23,7 @@ function AddStudent() {
 
   // const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
   //   .length;
-  console.log(data);
+
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
