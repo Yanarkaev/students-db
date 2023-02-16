@@ -14,7 +14,7 @@ export const FilterBar = () => {
     educationType: "",
     status: "",
   });
-  console.log(date);
+
   return (
     <div className={styles.FilterBar}>
       <div className={styles.dateSelect}>

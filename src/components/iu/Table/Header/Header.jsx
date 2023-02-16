@@ -1,22 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../..";
-import {
-  fetchStudents,
-  fetchStudentsByStatus,
-} from "../../../../features/students/studentsSlice";
 import styles from "./Header.module.scss";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const handleClick = (type) => {
-    dispatch(fetchStudentsByStatus(type));
-  };
-  const handleReset = () => {
-    dispatch(fetchStudents());
-  };
+
   return (
     <div className={styles.Header}>
       <div className={styles.nav}>
@@ -26,7 +15,6 @@ export const Header = () => {
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          onClick={() => handleReset()}
         >
           главная
         </NavLink>
@@ -39,37 +27,33 @@ export const Header = () => {
         >
           добавить студента
         </NavLink>
-        <Button
-          variant="categories"
-          to="/"
+        <NavLink
+          to="/reception"
+          end
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          onClick={() => handleClick("Принят")}
         >
           Прием
-        </Button>
-
-        <Button
-          variant="categories"
-          to="/"
+        </NavLink>
+        <NavLink
+          to="/transfer"
+          end
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          onClick={() => handleClick("Перевод")}
         >
           Перевод
-        </Button>
-        <Button
-          variant="categories"
-          to="/"
+        </NavLink>
+        <NavLink
+          to="/expulsion"
+          end
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          onClick={() => handleClick("Отчислен")}
         >
           Отчисление
-        </Button>
+        </NavLink>
         <NavLink
           variant="enter"
           to="/admin"
