@@ -4,6 +4,7 @@ const initialState = {
   students: [],
   loading: false,
   error: null,
+  isAdded: false,
 };
 
 export const fetchStudents = createAsyncThunk(
@@ -22,7 +23,7 @@ export const fetchStudents = createAsyncThunk(
 
 export const addStudents = createAsyncThunk(
   "students/addStudents",
-  async (studentData, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       const response = await fetch("http://localhost:3001/students/", {
         method: "POST",
@@ -30,7 +31,7 @@ export const addStudents = createAsyncThunk(
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(studentData),
+        body: JSON.stringify(data),
       });
       return response.json();
     } catch (error) {
@@ -41,19 +42,29 @@ export const addStudents = createAsyncThunk(
 const studentsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    resetIsAdded: (state, action) => {
+      state.isAdded = false;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(addStudents.pending, (state, action) => {
         state.loading = true;
+        state.isAdded = false;
+        console.log(action);
       })
       .addCase(addStudents.fulfilled, (state, action) => {
         state.loading = false;
         state.students = state.students.concat(action.payload);
+        state.isAdded = true;
+        console.log(action);
       })
       .addCase(addStudents.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+        state.isAdded = false;
+        console.log(action);
       })
       .addCase(fetchStudents.pending, (state, action) => {
         state.loading = true;
@@ -68,7 +79,7 @@ const studentsSlice = createSlice({
       });
   },
 });
-
+export const { resetIsAdded } = studentsSlice.actions;
 export default studentsSlice.reducer;
 
 export const selectAllstudents = (state) => state.students.students;
