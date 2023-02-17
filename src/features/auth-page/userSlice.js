@@ -4,6 +4,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   loading: false,
   error: null,
+  isAdded: false,
 };
 
 //Регистрация пользователя(нужно дополнить структуру получаемых данных)
@@ -72,6 +73,9 @@ export const userSlice = createSlice({
     isUserSignIn: (state, action) => {
       state.token = localStorage.getItem("token");
     },
+    resetIsAdded: (state, action) => {
+      state.isAdded = false;
+    },
   },
 
   extraReducers: (builder) => {
@@ -80,14 +84,18 @@ export const userSlice = createSlice({
       .addCase(signUpUser.pending, (state, action) => {
         state.loading = true;
         state.error = null;
+        state.isAdded = false;
       })
       .addCase(signUpUser.rejected, (state, action) => {
+        console.log(action);
+        state.isAdded = false;
         state.loading = false;
         state.error = action.payload;
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
+        console.log(action);
         state.loading = false;
-        // state.signUp = true;
+        state.isAdded = true;
         state.error = null;
       })
       //Авторизация пользователя
@@ -106,5 +114,5 @@ export const userSlice = createSlice({
       });
   },
 });
-export const { userLogout, isUserSignIn } = userSlice.actions;
+export const { userLogout, isUserSignIn, resetIsAdded } = userSlice.actions;
 export default userSlice.reducer;
