@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
-import { useDispatch } from "react-redux";
-import { addStudents } from "../studentsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addStudents, resetIsAdded } from "../studentsSlice";
 function AddStudent() {
   const [data, setData] = useState({
     fullname: "",
     gender: "Мужской",
-    department: "",
     faculty: "",
     course: "",
     group: "",
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
-  });
-  const [dataStatus, setDataStatus] = useState({
-    title: "Принят",
+    status: "Принят",
     from: "",
     to: "",
+    details: "",
   });
+  const isAdded = useSelector((state) => state.students.isAdded);
 
+  useEffect(() => {
+    if (isAdded) {
+      setData({
+        ...data,
+        fullname: "",
+        gender: "Мужской",
+        faculty: "",
+        course: "",
+        group: "",
+        from: "",
+        to: "",
+        details: "",
+      });
+    }
+  }, [isAdded]);
   // const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
   //   .length;
 
@@ -30,15 +44,13 @@ function AddStudent() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addStudents({ data: data, status: dataStatus }));
+    dispatch(addStudents(data));
   };
 
   const handleSelect = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  const hadleStatus = (e, type) => {
-    setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
-  };
+
   return (
     <div className={styles.container}>
       <h1>Добавление студента</h1>
@@ -49,6 +61,7 @@ function AddStudent() {
           className={styles.fullname}
           name="fullname"
           placeholder="ФИО"
+          onBlur={() => dispatch(resetIsAdded())}
         />
         <select
           value={data.gender}
@@ -118,10 +131,10 @@ function AddStudent() {
         <label className={styles.label} htmlFor="eduction">
           <span>Статус студента</span>
           <select
-            value={dataStatus.title}
-            onChange={hadleStatus}
-            id="title"
-            name="title"
+            value={data.status}
+            onChange={handleSelect}
+            id="status"
+            name="status"
           >
             <option value="Принят">Принят</option>
             <option value="Перевод">Перевод</option>
@@ -136,19 +149,29 @@ function AddStudent() {
         type="date"
       />
       <div className={styles.inputGroups}>
-        {dataStatus.title === "Перевод" && (
+        {data.status === "Перевод" && (
           <>
             <Input
-              value={dataStatus.from}
+              value={data.from}
               name="from"
-              onChange={hadleStatus}
+              onChange={handleSelect}
               placeholder="Из"
             />
             <Input
-              value={dataStatus.to}
+              value={data.to}
               name="to"
-              onChange={hadleStatus}
+              onChange={handleSelect}
               placeholder="В"
+            />
+          </>
+        )}
+        {data.status === "Отчислен" && (
+          <>
+            <Input
+              value={data.details}
+              name="details"
+              onChange={handleSelect}
+              placeholder="Причина"
             />
           </>
         )}
@@ -156,6 +179,7 @@ function AddStudent() {
       <Button onClick={handleClick} variant="categories">
         Добавить
       </Button>
+      {isAdded && <div color="green">Студент добавлен</div>}
     </div>
   );
 }
