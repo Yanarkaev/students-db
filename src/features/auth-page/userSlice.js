@@ -114,5 +114,6 @@ export const userSlice = createSlice({
       });
   },
 });
+export const authToken = (state) => state.user.token;
 export const { userLogout, isUserSignIn, resetIsAdded } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "../iu";
+import { Button, Input } from "../iu";
 import styles from "./FilterBar.module.scss";
 
 export const FilterBar = () => {
@@ -16,7 +16,7 @@ export const FilterBar = () => {
   });
 
   return (
-    <div className={styles.FilterBar}>
+    <div className={`${styles.FilterBar}`}>
       <div className={styles.dateSelect}>
         <div>
           <span>с:</span>
@@ -36,42 +36,62 @@ export const FilterBar = () => {
         />
         <Input
           className={styles.filterInput}
-          placeholder="Направление"
+          placeholder="Факультет"
           variant="outlined"
         />
       </div>
 
       <div className={styles.selects}>
-        <select className={styles.selectCourse}>
-          <option value="">курс 1</option>
-          <option value="">курс 2</option>
-          <option value="">курс 3</option>
-          <option value="">курс 4</option>
-          <option value="">курс 5</option>
-          <option value="">курс 6</option>
-        </select>
+        <div>
+          <span>Курс</span>
+          <select className={styles.selectCourse}>
+            <option value="">Все</option>
+            <option value="">1</option>
+            <option value="">2</option>
+            <option value="">3</option>
+            <option value="">4</option>
+            <option value="">5</option>
+            <option value="">6</option>
+          </select>
+        </div>
 
-        <select name="" className={styles.selectGender}>
-          <option value="">Мужской</option>
-          <option value="">Женский</option>
-        </select>
+        <div>
+          <span>Пол</span>
+          <select name="" className={styles.selectGender}>
+            <option value="">Все</option>
+            <option value="">Мужской</option>
+            <option value="">Женский</option>
+          </select>
+        </div>
 
-        <select name="" className={styles.selectForm}>
-          <option value="">Очно</option>
-          <option value="">Заочно</option>
-          <option value="">Очно-заочно</option>
-        </select>
+        <div>
+          <span>Форма обучения</span>
+          <select name="" className={styles.selectForm}>
+            <option value="">Все</option>
+            <option value="">Очно</option>
+            <option value="">Заочно</option>
+            <option value="">Очно-заочно</option>
+          </select>
+        </div>
 
-        <select name="" className={styles.selectType}>
-          <option value="">Бюджет</option>
-          <option value="">Контракт</option>
-        </select>
+        <div>
+          <span>Тип обучения</span>
+          <select name="" className={styles.selectType}>
+            <option value="">Все</option>
+            <option value="">Бюджет</option>
+            <option value="">Контракт</option>
+          </select>
+        </div>
 
-        <select name="" className={styles.selectStatus}>
-          <option value="">Принят</option>
-          <option value="">Переведен</option>
-          <option value="">Отчислен</option>
-        </select>
+        <div>
+          <span>Статус</span>
+          <select name="" className={styles.selectStatus}>
+            <option value="">Все</option>
+            <option value="">Принят</option>
+            <option value="">Переведен</option>
+            <option value="">Отчислен</option>
+          </select>
+        </div>
       </div>
     </div>
   );
