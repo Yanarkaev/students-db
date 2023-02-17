@@ -41,7 +41,7 @@ function AddStudent() {
   };
   return (
     <div className={styles.container}>
-      <h1>Добавить студента</h1>
+      <h1>Добавление студента</h1>
       <div className={styles.fullnameContainer}>
         <Input
           value={data.fullname}
@@ -78,6 +78,7 @@ function AddStudent() {
           name="course"
           onChange={handleData}
           placeholder="КУРС"
+          min="1"
         />
       </div>
       <div className={styles.inputGroups}>

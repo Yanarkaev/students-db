@@ -1,16 +1,19 @@
 .AdminPage {
+  margin-top: 50px;
   .registerForm {
-    h1{
-        margin-bottom: 30px;
+    h1 {
+      font-size: 20px;
+      padding: 10px 0;
+      text-transform: uppercase;
     }
 
-    max-width: 500px;
+    max-width: 600px;
     text-align: center;
     margin: 0 auto;
 
-    .input{
-        font-size: 20px;
-        margin: 5px 0;
+    .input {
+      font-size: 20px;
+      margin: 10px 0;
     }
     button {
       margin-top: 20px;
