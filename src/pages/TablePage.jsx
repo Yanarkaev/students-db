@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FilterBar } from "../components";
 import { Table } from "../components/iu/Table/Table";
+import StrudentsInfo from "../components/StudentsInfo/StrudentsInfo";
 import { fetchStudents } from "../features/students/studentsSlice";
 
 const TablePage = () => {
@@ -41,6 +42,7 @@ const TablePage = () => {
   return (
     <>
       <FilterBar />
+      <StrudentsInfo students={students} />
       <Table columns={columns} rows={students} />
     </>
   );
