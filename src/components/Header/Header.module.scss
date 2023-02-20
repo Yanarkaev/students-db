@@ -4,7 +4,7 @@
   justify-content: space-between;
   max-width: 1250px;
   margin: 0 auto;
-  padding: 15px 0;
+  padding: 20px 0;
 
   & * {
     font-weight: 500;
@@ -15,10 +15,11 @@
     align-items: center;
 
     .navLink {
-      border-radius: 10px;
+      border-radius: 5px;
       color: #fff;
       text-decoration: none;
       padding: 10px 20px;
+      min-height: 45px;
       font-size: 20px;
       background: #197de3;
       cursor: pointer;
@@ -44,6 +45,7 @@
 
       &:hover {
         background: #1568bd;
+        padding: 4px 20px;
       }
     }
 
@@ -53,6 +55,8 @@
 
     .activeLink {
       background-color: #1568bd;
+      padding: 4px 20px;
+
       &::before {
         transition: 0.2s;
         content: "";
@@ -63,6 +67,19 @@
         position: absolute;
         bottom: 0;
         left: 0;
+      }
+    }
+  }
+  .auth {
+    a {
+      text-decoration: none;
+      background: #38ac30;
+      padding: 10px 25px;
+      color: #fff;
+      border-radius: 10px;
+      transition: 0.2s;
+      &:hover {
+        background: #297c23;
       }
     }
   }

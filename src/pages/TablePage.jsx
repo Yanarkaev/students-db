@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FilterBar } from "../components";
 import { Table } from "../components/iu/Table/Table";
+import StrudentsInfo from "../components/StudentsInfo/StrudentsInfo";
 import { fetchStudents } from "../features/students/studentsSlice";
 
 const TablePage = () => {
@@ -14,6 +15,7 @@ const TablePage = () => {
     { value: "fullname", displayValue: "ФИО" },
     { value: "gender", displayValue: "Пол" },
     { value: "department", displayValue: "ВУЗ" },
+    { value: "status", displayValue: "Статус" },
     { value: "faculty", displayValue: "Факультет" },
     { value: "status", displayValue: "Статус" },
     { value: "course", displayValue: "Курс" },
@@ -47,6 +49,9 @@ const TablePage = () => {
         columns={columns}
         rows={!!afterFilter.length ? afterFilter : students}
       />
+
+      <StrudentsInfo students={students} />
+      <Table columns={columns} rows={students} />
     </>
   );
 };

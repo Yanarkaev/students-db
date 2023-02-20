@@ -10,6 +10,7 @@ export const Input = ({
   name,
   onChange,
   onBlur,
+  min
 }) => {
   const [focus, setFocus] = useState(false);
   return (
@@ -23,6 +24,7 @@ export const Input = ({
         onChange={onChange}
         name={name}
         onBlur={onBlur}
+        min={min}
       />
       <span
         className={`${styles.placeholder} ${

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
 import { addStudents } from "../studentsSlice";
-
 function AddStudent() {
   const [data, setData] = useState({
     fullname: "",
@@ -14,15 +13,33 @@ function AddStudent() {
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
+
     details: "По другим причинам",
   });
   const [dataStatus, setDataStatus] = useState({
     status: "Принят",
     from: "",
     to: "",
+    details: "",
   });
-  const error = useSelector((state) => state.students.error);
-  console.log(error);
+
+  const isAdded = useSelector((state) => state.students.isAdded);
+
+  useEffect(() => {
+    if (isAdded) {
+      setData({
+        ...data,
+        fullname: "",
+        gender: "Мужской",
+        faculty: "",
+        course: "",
+        group: "",
+        from: "",
+        to: "",
+        details: "",
+      });
+    }
+  }, [isAdded]);
   // const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
   //   .length;
 
@@ -32,12 +49,13 @@ function AddStudent() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addStudents({ data: data, status: dataStatus }));
+    dispatch(addStudents(data));
   };
 
   const handleSelect = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
   const hadleStatus = (e, type) => {
     setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
   };
@@ -54,9 +72,10 @@ function AddStudent() {
     ["По собственному желанию", "По собственному желанию"],
     ["Перевод в другой ВУЗ", "Перевод в другой ВУЗ"],
   ];
+
   return (
     <div className={styles.container}>
-      <h1>Добавить студента</h1>
+      <h1>Добавление студента</h1>
       <div className={styles.fullnameContainer}>
         <Input
           value={data.fullname}
@@ -64,6 +83,7 @@ function AddStudent() {
           className={styles.fullname}
           name="fullname"
           placeholder="ФИО"
+          onBlur={() => dispatch(resetIsAdded())}
         />
         <select
           value={data.gender}
@@ -91,6 +111,7 @@ function AddStudent() {
           name="course"
           onChange={handleData}
           placeholder="КУРС"
+          min="1"
         />
       </div>
       <div className={styles.inputGroups}>
@@ -148,22 +169,23 @@ function AddStudent() {
         type="date"
       />
       <div className={styles.inputGroups}>
-        {dataStatus.title === "Перевод" && (
+        {data.status === "Перевод" && (
           <>
             <Input
-              value={dataStatus.from}
+              value={data.from}
               name="from"
-              onChange={hadleStatus}
+              onChange={handleSelect}
               placeholder="Из"
             />
             <Input
-              value={dataStatus.to}
+              value={data.to}
               name="to"
-              onChange={hadleStatus}
+              onChange={handleSelect}
               placeholder="В"
             />
           </>
         )}
+
         {dataStatus.status === "Отчислен" && (
           <select value={data.details} name="details" onChange={hadleStatus}>
             {reasons.map(([value, item], index) => (
@@ -177,6 +199,7 @@ function AddStudent() {
       <Button onClick={handleClick} variant="categories">
         Добавить
       </Button>
+      {isAdded && <div color="green">Студент добавлен</div>}
     </div>
   );
 }

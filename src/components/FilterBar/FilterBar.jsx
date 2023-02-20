@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -135,7 +136,7 @@ export const FilterBar = () => {
   }, [title]);
 
   return (
-    <div className={styles.FilterBar}>
+    <div className={`${styles.FilterBar}`}>
       <div className={styles.dateSelect}>
         <div>
           <span>с:</span>
@@ -163,6 +164,7 @@ export const FilterBar = () => {
       </div>
 
       <div className={styles.inputs}>
+
         {filterInput.map(({ placeholder, name }, index) => (
           <Input
             key={index}
@@ -196,6 +198,7 @@ export const FilterBar = () => {
       <div className={styles.filterInput}>
         <Button children="Применить" onClick={useFilter} />
         <Button children="Сбросить" onClick={resetFilter} />
+
       </div>
     </div>
   );

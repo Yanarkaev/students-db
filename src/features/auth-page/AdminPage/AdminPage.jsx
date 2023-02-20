@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../../components/iu";
-import { useDispatch } from "react-redux";
-import { signUpUser } from "./../userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { resetIsAdded, signUpUser } from "./../userSlice";
 import styles from "./AdminPage.module.scss";
 
 export const AdminPage = () => {
   const dispatch = useDispatch();
+
+  const isAdded = useSelector((state) => state.user.isAdded);
+  const error = useSelector((state) => state.user.error);
   const [data, setData] = useState({
     fullname: "",
     login: "",
@@ -23,9 +26,7 @@ export const AdminPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (dataChecker) {
-      dispatch(signUpUser(data));
-    }
+    dispatch(signUpUser(data));
   };
 
   return (
@@ -38,6 +39,7 @@ export const AdminPage = () => {
           name="fullname"
           value={data.fullname}
           placeholder="ФИО"
+          onBlur={() => dispatch(resetIsAdded())}
         />
         <Input
           className={styles.input}
@@ -68,9 +70,13 @@ export const AdminPage = () => {
           placeholder="Должность"
         />
 
-        <Button disabled={dataChecker} variant="enter">
+        <Button disabled={dataChecker} variant="enter" type="submit">
           Зарегистрировать
         </Button>
+        <div>
+          {isAdded && "Пользователь добавлен"}
+          {isAdded}
+        </div>
       </form>
     </div>
   );
