@@ -3,23 +3,28 @@ import { useStudents } from "./../../../shared/hooks/useStudents";
 import { useParams } from "react-router-dom";
 import styles from "./StudentPage.module.scss";
 import { Button, Input } from "./../../../components/iu";
-import { useDispatch } from "react-redux";
-import { changeStudentData } from "../studentsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { changeStudentData, getStudentById } from "../studentsSlice";
+import { getStudent } from "./../studentsSlice";
 
 const StudentPage = () => {
   const { studentId } = useParams();
   const [changesOn, setChangesOn] = useState(false);
-  const [student, setStudent] = useState();
+  // const [student, setStudent] = useState();
   const [changesData, setChangesData] = useState({});
 
   const dispatch = useDispatch();
 
-  const [students] = useStudents();
-  const currentStudent = students.find((el) => el?._id === studentId);
+  const student = useSelector(getStudent);
+  // console.log(currentStudent);
 
   useEffect(() => {
-    setStudent(currentStudent);
-  }, [currentStudent]);
+    dispatch(getStudentById(studentId));
+  }, [dispatch, studentId]);
+
+  // useEffect(() => {
+  //   setStudent(currentStudent);
+  // }, [currentStudent]);
 
   useEffect(() => {
     if (student) {
@@ -33,11 +38,11 @@ const StudentPage = () => {
         educationType: student.educationType,
         status: student.status,
         relocation: {
-          from: "",
-          to: "",
+          from: student.relocation?.from,
+          to: student.relocation?.to,
         },
         changeDate: student.changeDate,
-        details: "",
+        details: student.details,
       });
     }
   }, [student]);
@@ -60,18 +65,15 @@ const StudentPage = () => {
     setChangesData({
       ...changesData,
       relocation: { from: "", to: "" },
-      details: "",
+      details: "Невыполнение условий договора",
     });
   }, [changesData?.status]);
 
   const handleSubmit = (e) => {
     setChangesOn(false);
-    setStudent(changesData);
     dispatch(changeStudentData({ id: student._id, data: changesData }));
   };
-  if (!student) {
-    return;
-  }
+
   if (student) {
     return (
       <div className={styles.StudentPage}>
@@ -225,20 +227,44 @@ const StudentPage = () => {
 
                 {changesData.status === "Отчислен" && (
                   <div className={styles.statusInputs}>
-                    <Input
+                    <select
                       name="details"
-                      onChange={handleChangeData}
-                      type="text"
                       value={changesData.details}
-                    />
+                      onChange={handleChangeData}
+                    >
+                      <option value="Невыполнение условий договора">
+                        Невыполнение условий договора
+                      </option>
+                      <option value="Утеря связи">Утеря связи</option>
+                      <option value="Академическая неуспеваемость">
+                        Академическая неуспеваемость
+                      </option>
+                      <option value="Невыход из академки">
+                        Невыход из академки
+                      </option>
+                      <option value="Неудовлетворительная оценка на ГИА">
+                        Неудовлетворительная оценка на ГИА
+                      </option>
+                      <option value="По собственному желанию">
+                        По собственному желанию
+                      </option>
+                      <option value="Перевод в другой ВУЗ">
+                        Перевод в другой ВУЗ
+                      </option>
+                      <option value="По другим причинам">
+                        По другим причинам
+                      </option>
+                    </select>
                   </div>
                 )}
               </>
             ) : (
               <b>
-                {student.status === "Принят" || student.status === "Отчислен"
-                  ? student.status
-                  : `Переведен из ${student.relocation.from} в ${student.relocation.to}`}
+                {student.status === "Принят" && student.status}
+                {student.status === "Отчислен" &&
+                  `${student.status} (${student.details})`}
+                {student.status === "Перевод" &&
+                  `Переведен из ${student.relocation?.from} в ${student.relocation?.to}`}
               </b>
             )}
           </div>
