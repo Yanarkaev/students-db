@@ -4,6 +4,7 @@ import Layout from "./components/Layout/Layout";
 import AuthPage from "./pages/AuthPage";
 import PostStudentPage from "./pages/PostStudentPage";
 import { AdminPage } from "./features/auth-page/AdminPage/AdminPage";
+import StudentPage from "./features/students/student-page/StudentPage";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="/signin" element={<AuthPage />} />
           <Route path="/addstud" element={<PostStudentPage />} />
           <Route path="/admin" element={<AdminPage />} />
-          <Route />
+          <Route path="student/:studentId" element={<StudentPage />} />
         </Route>
       </Routes>
     </div>

@@ -6,7 +6,7 @@ export const Input = ({
   value,
   placeholder = "",
   variant = "standard",
-  className,
+  className = '',
   name,
   onChange,
   onBlur,
@@ -17,7 +17,7 @@ export const Input = ({
     <div className={`${styles.InputWrapper} ${className}`}>
       <input
         type={type}
-        className={`${styles.Input} ${className} ${styles[variant]} `}
+        className={`${styles.Input} ${styles[variant]} `}
         // onFocus={() => setFocus(true)}
         // onBlur={() => setFocus(false)}
         value={value}
