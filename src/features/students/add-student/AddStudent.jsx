@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addStudents } from "../studentsSlice";
+
 function AddStudent() {
   const [data, setData] = useState({
     fullname: "",
     gender: "Мужской",
-    department: "",
     faculty: "",
     course: "",
     group: "",
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
+    details: "По другим причинам",
   });
   const [dataStatus, setDataStatus] = useState({
-    title: "Принят",
+    status: "Принят",
     from: "",
     to: "",
   });
-
+  const error = useSelector((state) => state.students.error);
+  console.log(error);
   // const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
   //   .length;
 
@@ -39,6 +41,19 @@ function AddStudent() {
   const hadleStatus = (e, type) => {
     setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
   };
+  const reasons = [
+    ["По другим причинам", "По другим причинам"],
+    ["Невыполнение условий договора", "Невыполнение условий договора"],
+    ["Утеря связи", "Утеря связи"],
+    ["Академическая неуспеваемость", "Академическая неуспеваемость"],
+    ["Невыход из академки", "Невыход из академки"],
+    [
+      "Неудовлетворительная оценка на ГИА",
+      "Неудовлетворительная оценка на ГИА",
+    ],
+    ["По собственному желанию", "По собственному желанию"],
+    ["Перевод в другой ВУЗ", "Перевод в другой ВУЗ"],
+  ];
   return (
     <div className={styles.container}>
       <h1>Добавить студента</h1>
@@ -56,9 +71,7 @@ function AddStudent() {
           className={styles.select}
           name="gender"
         >
-          <option selected value="Мужской">
-            Мужской
-          </option>
+          <option value="Мужской">Мужской</option>
           <option value="Женский">Женский</option>
         </select>
       </div>
@@ -117,10 +130,10 @@ function AddStudent() {
         <label className={styles.label} htmlFor="eduction">
           <span>Статус студента</span>
           <select
-            value={dataStatus.title}
+            value={dataStatus.status}
             onChange={hadleStatus}
-            id="title"
-            name="title"
+            id="status"
+            name="status"
           >
             <option value="Принят">Принят</option>
             <option value="Перевод">Перевод</option>
@@ -150,6 +163,15 @@ function AddStudent() {
               placeholder="В"
             />
           </>
+        )}
+        {dataStatus.status === "Отчислен" && (
+          <select value={data.details} name="details" onChange={hadleStatus}>
+            {reasons.map(([value, item], index) => (
+              <option key={index} value={value}>
+                {item}
+              </option>
+            ))}
+          </select>
         )}
       </div>
       <Button onClick={handleClick} variant="categories">

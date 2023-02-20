@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  .header {
+    font-size: small;
+    color: grey;
+  }
+  .select {
+    border: 0;
+    border-bottom: 1px solid;
+    outline: 0;
+  }
+}
