@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FilterBar } from "../components";
+import { Button } from "../components/iu";
 import { Table } from "../components/iu/Table/Table";
 import StrudentsInfo from "../components/StudentsInfo/StrudentsInfo";
 import { fetchStudents } from "../features/students/studentsSlice";
@@ -9,7 +11,7 @@ import { fetchStudents } from "../features/students/studentsSlice";
 const TablePage = () => {
   const students = useSelector((state) => state.students.students);
   const afterFilter = useSelector((state) => state.students.filteredStudents);
-
+  const tableRef = useRef("table_main");
   const dispatch = useDispatch();
   const columns = [
     { value: "fullname", displayValue: "ФИО" },
@@ -17,7 +19,6 @@ const TablePage = () => {
     { value: "department", displayValue: "ВУЗ" },
     { value: "status", displayValue: "Статус" },
     { value: "faculty", displayValue: "Факультет" },
-    { value: "status", displayValue: "Статус" },
     { value: "course", displayValue: "Курс" },
     { value: "group", displayValue: "Группа" },
     { value: "educationForm", displayValue: "Форма обучения" },
@@ -44,14 +45,12 @@ const TablePage = () => {
   }, [dispatch, title, afterFilter]);
   return (
     <>
-      <FilterBar />
+      <FilterBar tableRef={tableRef} />
+      <StrudentsInfo students={!!afterFilter.length ? afterFilter : students} />
       <Table
         columns={columns}
         rows={!!afterFilter.length ? afterFilter : students}
       />
-
-      <StrudentsInfo students={students} />
-      <Table columns={columns} rows={students} />
     </>
   );
 };

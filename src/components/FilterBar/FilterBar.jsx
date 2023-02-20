@@ -1,5 +1,5 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -15,12 +15,11 @@ export const FilterBar = () => {
     fullname: "",
     department: "",
     faculty: "",
-    course: "",
-    gender: "",
-    educationForm: "",
-    educationType: "",
-    details: "",
-    isActive: false,
+    course: false,
+    gender: false,
+    educationForm: false,
+    educationType: false,
+    details: false,
   });
   const [timerData, setTimerData] = useState({
     startDate: "",
@@ -117,23 +116,23 @@ export const FilterBar = () => {
     dispatch(filterStudents({ data, timerData }));
   };
   const resetFilter = () => {
+    filterSelect.forEach((item) => {
+      let select = document.getElementById(item.name + 1);
+      select.value = false;
+    });
     setData({
       fullname: "",
       department: "",
       faculty: "",
-      course: "",
-      gender: "",
-      educationForm: "",
-      educationType: "",
-      details: "",
+      course: false,
+      gender: false,
+      educationForm: false,
+      educationType: false,
+      details: false,
     });
     setTimerData({ startDate: "", endDate: "", isActive: false });
     dispatch(filterReset());
   };
-
-  useEffect(() => {
-    resetFilter();
-  }, [title]);
 
   return (
     <div className={`${styles.FilterBar}`}>
@@ -164,7 +163,6 @@ export const FilterBar = () => {
       </div>
 
       <div className={styles.inputs}>
-
         {filterInput.map(({ placeholder, name }, index) => (
           <Input
             key={index}
@@ -198,7 +196,6 @@ export const FilterBar = () => {
       <div className={styles.filterInput}>
         <Button children="Применить" onClick={useFilter} />
         <Button children="Сбросить" onClick={resetFilter} />
-
       </div>
     </div>
   );

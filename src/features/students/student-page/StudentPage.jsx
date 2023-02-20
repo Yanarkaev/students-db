@@ -69,7 +69,9 @@ const StudentPage = () => {
     setStudent(changesData);
     dispatch(changeStudentData({ id: student._id, data: changesData }));
   };
-
+  if (!student) {
+    return;
+  }
   if (student) {
     return (
       <div className={styles.StudentPage}>
