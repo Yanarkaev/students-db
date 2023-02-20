@@ -103,7 +103,7 @@ const studentsSlice = createSlice({
       })();
     },
     filterReset: (state) => {
-      state.filteredStudents = [];
+      state.filteredStudents = [];},
     resetIsAdded: (state, action) => {
       state.isAdded = false;
     },
