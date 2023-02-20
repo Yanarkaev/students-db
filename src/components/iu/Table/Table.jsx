@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Table.module.scss";
+
 export const Table = ({ columns, rows }) => {
   const [data, setData] = useState(rows);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setData(rows);
@@ -26,7 +29,12 @@ export const Table = ({ columns, rows }) => {
       </thead>
       <tbody>
         {data.map((item, index) => (
-          <tr key={index} role="row" tabIndex={0}>
+          <tr
+            key={index}
+            role="row"
+            tabIndex={0}
+            onClick={() => navigate("/student/" + item._id)}
+          >
             {columns.map(({ value }) => (
               <td key={value} role="cell" tabIndex={-1}>
                 {item[value]}
