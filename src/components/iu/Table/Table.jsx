@@ -1,6 +1,6 @@
-
 import { useEffect, useRef, useState } from "react";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+import { useNavigate } from "react-router";
 import { Button } from "../Button/Button";
 import styles from "./Table.module.scss";
 export const Table = ({ columns, rows, ref }) => {
@@ -37,22 +37,23 @@ export const Table = ({ columns, rows, ref }) => {
                 </th>
               );
             })}
-          })}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => (
-          <tr
-            key={index}
-            role="row"
-            tabIndex={0}
-            onClick={() => navigate("/student/" + item._id)}
-          >
-            {columns.map(({ value }) => (
-              <td key={value} role="cell" tabIndex={-1}>
-                {item[value]}
-              </td>
-            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr
+              key={index}
+              role="row"
+              tabIndex={0}
+              onClick={() => navigate("/student/" + item._id)}
+            >
+              {columns.map(({ value }) => (
+                <td key={value} role="cell" tabIndex={-1}>
+                  {item[value]}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

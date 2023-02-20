@@ -56,6 +56,7 @@ export const changeStudentData = createAsyncThunk(
           body: JSON.stringify(data),
         }
       );
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
