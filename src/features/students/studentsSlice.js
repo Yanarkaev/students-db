@@ -40,6 +40,27 @@ export const addStudents = createAsyncThunk(
     }
   }
 );
+
+export const changeStudentData = createAsyncThunk(
+  "students/changeStudent",
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/students/student/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 const studentsSlice = createSlice({
   name: "posts",
   initialState,
@@ -115,6 +136,17 @@ const studentsSlice = createSlice({
         state.students = action.payload;
       })
       .addCase(fetchStudents.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(changeStudentData.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(changeStudentData.fulfilled, (state, action) => {
+        state.loading = false;
+        // state.students = action.payload;
+      })
+      .addCase(changeStudentData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
