@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   students: [],
+  filteredStudents: [],
   loading: false,
   error: null,
   isAdded: false,
@@ -43,6 +44,45 @@ const studentsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
+    filterStudents: (state, action) => {
+      state.filteredStudents = (function filter() {
+        let result = [...state.students];
+        let keys = Object.keys(action.payload.data);
+
+        let { isActive, endDate, startDate } = action.payload.timerData;
+
+        if (isActive) {
+          const start = new Date(startDate);
+          const end = new Date(endDate);
+          result = result.filter((student) => {
+            const rowDate = new Date(student.changeDate);
+            console.log(rowDate >= start && rowDate <= end);
+            return rowDate >= start && rowDate <= end;
+          });
+        }
+
+        keys.forEach((key) => {
+          result = result.filter((student) => {
+            if (!action.payload.data[key]) {
+              return true;
+            }
+            if (!!Number(action.payload[key])) {
+              return Number(student[key]) === Number(action.payload.data[key]);
+            }
+            if (typeof action.payload.data[key] === "string") {
+              return student[key]
+                .toLowerCase()
+                .includes(action.payload.data[key].toLowerCase());
+            }
+            return false;
+          });
+        });
+        console.log(result);
+        return result;
+      })();
+    },
+    filterReset: (state) => {
+      state.filteredStudents = [];
     resetIsAdded: (state, action) => {
       state.isAdded = false;
     },
@@ -79,6 +119,8 @@ const studentsSlice = createSlice({
       });
   },
 });
+
+export const { filterStudents, filterReset } = studentsSlice.actions;
 export const { resetIsAdded } = studentsSlice.actions;
 export default studentsSlice.reducer;
 

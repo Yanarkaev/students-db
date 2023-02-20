@@ -8,6 +8,8 @@ import { fetchStudents } from "../features/students/studentsSlice";
 
 const TablePage = () => {
   const students = useSelector((state) => state.students.students);
+  const afterFilter = useSelector((state) => state.students.filteredStudents);
+
   const dispatch = useDispatch();
   const columns = [
     { value: "fullname", displayValue: "ФИО" },
@@ -15,6 +17,7 @@ const TablePage = () => {
     { value: "department", displayValue: "ВУЗ" },
     { value: "status", displayValue: "Статус" },
     { value: "faculty", displayValue: "Факультет" },
+    { value: "status", displayValue: "Статус" },
     { value: "course", displayValue: "Курс" },
     { value: "group", displayValue: "Группа" },
     { value: "educationForm", displayValue: "Форма обучения" },
@@ -22,7 +25,7 @@ const TablePage = () => {
     { value: "changeDate", displayValue: "Дата" },
   ];
   const { title } = useParams();
-  console.log(title);
+
   useEffect(() => {
     switch (title) {
       case "reception":
@@ -38,10 +41,15 @@ const TablePage = () => {
         dispatch(fetchStudents("все"));
         break;
     }
-  }, [dispatch, title]);
+  }, [dispatch, title, afterFilter]);
   return (
     <>
       <FilterBar />
+      <Table
+        columns={columns}
+        rows={!!afterFilter.length ? afterFilter : students}
+      />
+
       <StrudentsInfo students={students} />
       <Table columns={columns} rows={students} />
     </>

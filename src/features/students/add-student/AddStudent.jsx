@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
-import { addStudents, resetIsAdded } from "../studentsSlice";
+import { addStudents } from "../studentsSlice";
 function AddStudent() {
   const [data, setData] = useState({
     fullname: "",
@@ -13,11 +13,16 @@ function AddStudent() {
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
+
+    details: "По другим причинам",
+  });
+  const [dataStatus, setDataStatus] = useState({
     status: "Принят",
     from: "",
     to: "",
     details: "",
   });
+
   const isAdded = useSelector((state) => state.students.isAdded);
 
   useEffect(() => {
@@ -51,6 +56,23 @@ function AddStudent() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  const hadleStatus = (e, type) => {
+    setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
+  };
+  const reasons = [
+    ["По другим причинам", "По другим причинам"],
+    ["Невыполнение условий договора", "Невыполнение условий договора"],
+    ["Утеря связи", "Утеря связи"],
+    ["Академическая неуспеваемость", "Академическая неуспеваемость"],
+    ["Невыход из академки", "Невыход из академки"],
+    [
+      "Неудовлетворительная оценка на ГИА",
+      "Неудовлетворительная оценка на ГИА",
+    ],
+    ["По собственному желанию", "По собственному желанию"],
+    ["Перевод в другой ВУЗ", "Перевод в другой ВУЗ"],
+  ];
+
   return (
     <div className={styles.container}>
       <h1>Добавление студента</h1>
@@ -69,9 +91,7 @@ function AddStudent() {
           className={styles.select}
           name="gender"
         >
-          <option selected value="Мужской">
-            Мужской
-          </option>
+          <option value="Мужской">Мужской</option>
           <option value="Женский">Женский</option>
         </select>
       </div>
@@ -131,8 +151,8 @@ function AddStudent() {
         <label className={styles.label} htmlFor="eduction">
           <span>Статус студента</span>
           <select
-            value={data.status}
-            onChange={handleSelect}
+            value={dataStatus.status}
+            onChange={hadleStatus}
             id="status"
             name="status"
           >
@@ -165,15 +185,15 @@ function AddStudent() {
             />
           </>
         )}
-        {data.status === "Отчислен" && (
-          <>
-            <Input
-              value={data.details}
-              name="details"
-              onChange={handleSelect}
-              placeholder="Причина"
-            />
-          </>
+
+        {dataStatus.status === "Отчислен" && (
+          <select value={data.details} name="details" onChange={hadleStatus}>
+            {reasons.map(([value, item], index) => (
+              <option key={index} value={value}>
+                {item}
+              </option>
+            ))}
+          </select>
         )}
       </div>
       <Button onClick={handleClick} variant="categories">
