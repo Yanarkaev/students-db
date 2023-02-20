@@ -28,7 +28,8 @@
       cursor: pointer;
       background-color: rgb(240, 240, 240);
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         background-color: rgb(230, 230, 230);
       }
     }
@@ -62,4 +63,11 @@
 
     // border: 1px solid #3e4a514f;
   }
+}
+.exporter {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
 }

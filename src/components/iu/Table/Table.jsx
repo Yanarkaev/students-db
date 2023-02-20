@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "./Table.module.scss";
 
-export const Table = ({ columns, rows }) => {
+import { useEffect, useRef, useState } from "react";
+import { DownloadTableExcel } from "react-export-table-to-excel";
+import { Button } from "../Button/Button";
+import styles from "./Table.module.scss";
+export const Table = ({ columns, rows, ref }) => {
   const [data, setData] = useState(rows);
+  const tableRef = useRef("table_main");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,15 +17,26 @@ export const Table = ({ columns, rows }) => {
   }
 
   return (
-    <table className={styles.Table}>
-      <thead>
-        <tr>
-          {columns.map(({ value, displayValue }) => {
-            return (
-              <th key={value} role="columnheader" tabIndex={0}>
-                {displayValue}
-              </th>
-            );
+    <>
+      <div className={styles.exporter}>
+        <DownloadTableExcel
+          filename="students_table"
+          sheet="students"
+          currentTableRef={tableRef.current}
+        >
+          <Button> Export excel </Button>
+        </DownloadTableExcel>
+      </div>
+      <table className={styles.Table} ref={tableRef}>
+        <thead>
+          <tr>
+            {columns.map(({ value, displayValue }) => {
+              return (
+                <th key={value} role="columnheader" tabIndex={0}>
+                  {displayValue}
+                </th>
+              );
+            })}
           })}
         </tr>
       </thead>
@@ -40,9 +53,8 @@ export const Table = ({ columns, rows }) => {
                 {item[value]}
               </td>
             ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </>
   );
 };

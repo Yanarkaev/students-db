@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
-import { addStudents } from "../studentsSlice";
+import { addStudents, resetIsAdded } from "../studentsSlice";
 function AddStudent() {
   const [data, setData] = useState({
     fullname: "",

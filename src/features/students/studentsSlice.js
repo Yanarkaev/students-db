@@ -87,7 +87,7 @@ const studentsSlice = createSlice({
             if (!action.payload.data[key]) {
               return true;
             }
-            if (!!Number(action.payload[key])) {
+            if (!!Number(student[key])) {
               return Number(student[key]) === Number(action.payload.data[key]);
             }
             if (typeof action.payload.data[key] === "string") {
@@ -104,6 +104,7 @@ const studentsSlice = createSlice({
     },
     filterReset: (state) => {
       state.filteredStudents = [];
+    },
     resetIsAdded: (state, action) => {
       state.isAdded = false;
     },
