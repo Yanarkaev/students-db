@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { DownloadTableExcel } from "react-export-table-to-excel";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   filterReset,
@@ -11,6 +10,12 @@ import { Select } from "../iu/Select/Select";
 import styles from "./FilterBar.module.scss";
 
 export const FilterBar = () => {
+  const { title } = useParams();
+
+  const dispatch = useDispatch();
+  const filteredStudents = useSelector(
+    (state) => state.students.filteredStudents
+  );
   const [data, setData] = useState({
     fullname: "",
     department: "",
@@ -24,10 +29,7 @@ export const FilterBar = () => {
   const [timerData, setTimerData] = useState({
     startDate: "",
     endDate: "",
-    isActive: false,
   });
-  const { title } = useParams();
-  const dispatch = useDispatch();
 
   const filterSelect = [
     {
@@ -55,6 +57,7 @@ export const FilterBar = () => {
         [false, "все"],
         ["Очно", "Очно"],
         ["Заочно", "Заочно"],
+        ["Очно-заочно", "Очно-заочно"],
       ],
     },
     {
@@ -102,18 +105,12 @@ export const FilterBar = () => {
       ["Перевод в другой ВУЗ", "Перевод в другой ВУЗ"],
     ],
   };
-
-  const handleFilter = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-  const handleFilterTime = (e) => {
+  const handleFilterTime = async (e) => {
     setTimerData({ ...timerData, [e.target.name]: e.target.value });
   };
-  const handleFilterTimeActive = (e) => {
-    setTimerData({ ...timerData, isActive: !timerData.isActive });
-  };
-  const useFilter = () => {
-    dispatch(filterStudents({ data, timerData }));
+
+  const handleFilter = async (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
   const resetFilter = () => {
     filterSelect.forEach((item) => {
@@ -130,20 +127,36 @@ export const FilterBar = () => {
       educationType: false,
       details: false,
     });
-    setTimerData({ startDate: "", endDate: "", isActive: false });
-    dispatch(filterReset());
+    setTimerData({
+      startDate: "",
+      endDate: "",
+      isActive: false,
+    });
   };
+
+  useEffect(() => {
+    dispatch(filterReset());
+  }, [title, dispatch]);
+  useEffect(() => {
+    dispatch(filterStudents({ data, timerData }));
+  }, [data, timerData, dispatch]);
 
   return (
     <div className={`${styles.FilterBar}`}>
+      <div className={styles.header}>
+        <h2>Фильтр</h2>
+      </div>
       <div className={styles.dateSelect}>
+        <h3>Дата</h3>
+
         <div>
           <span>с:</span>
           <input
             type="date"
             onChange={handleFilterTime}
             name="startDate"
-            value={data.startDate}
+            id="startDate"
+            value={timerData.startDate}
           />
         </div>
         <div>
@@ -152,13 +165,9 @@ export const FilterBar = () => {
             type="date"
             onChange={handleFilterTime}
             name="endDate"
-            value={data.endDate}
+            id="endDate"
+            value={timerData.endDate}
           />
-        </div>
-        <div>
-          <Button onClick={handleFilterTimeActive}>
-            {timerData.isActive ? "Вкл" : "Выкл"}
-          </Button>
         </div>
       </div>
 
@@ -168,7 +177,6 @@ export const FilterBar = () => {
             key={index}
             placeholder={placeholder}
             name={name}
-            variant="outlined"
             onChange={handleFilter}
             value={data[name]}
           />
@@ -193,8 +201,9 @@ export const FilterBar = () => {
           ></Select>
         )}
       </div>
-      <div className={styles.filterInput}>
-        <Button children="Применить" onClick={useFilter} />
+
+      <div className={styles.resetButton}>
+        <div>Найдено по фильтру:{filteredStudents.length}</div>
         <Button children="Сбросить" onClick={resetFilter} />
       </div>
     </div>

@@ -41,7 +41,6 @@ const TablePage = () => {
         dispatch(fetchStudents("Все"));
         break;
     }
-    console.log(title);
   }, [dispatch, title, afterFilter]);
   return (
     <>

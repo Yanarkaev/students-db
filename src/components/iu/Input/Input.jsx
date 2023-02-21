@@ -6,11 +6,11 @@ export const Input = ({
   value,
   placeholder = "",
   variant = "standard",
-  className = '',
+  className = "",
   name,
   onChange,
   onBlur,
-  min
+  min,
 }) => {
   const [focus, setFocus] = useState(false);
   return (
