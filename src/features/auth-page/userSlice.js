@@ -51,7 +51,7 @@ export const signInUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(data.error);
       }
       localStorage.setItem("token", data.token);
-      return data;
+      return data.token;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -105,7 +105,7 @@ export const userSlice = createSlice({
       .addCase(signInUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        localStorage.removeItem("token");
+        // localStorage.removeItem("token");
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.loading = false;

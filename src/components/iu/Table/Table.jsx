@@ -17,14 +17,14 @@ export const Table = ({ columns, rows, ref }) => {
   }
 
   return (
-    <>
+    <div className={styles.tableWrapper}>
       <div className={styles.exporter}>
         <DownloadTableExcel
           filename="students_table"
           sheet="students"
           currentTableRef={tableRef.current}
         >
-          <Button> Export excel </Button>
+          <Button variant="enter" className={styles.exelBtn}> Скачать в Excel </Button>
         </DownloadTableExcel>
       </div>
       <table className={styles.Table} ref={tableRef}>
@@ -56,6 +56,6 @@ export const Table = ({ columns, rows, ref }) => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
