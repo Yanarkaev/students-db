@@ -24,22 +24,6 @@
   transition: 0.2s;
   overflow: hidden;
 
-  // &::before {
-  //   transition: 0.2s;
-  //   content: "";
-  //   display: block;
-  //   width: 100%;
-  //   height: 10px;
-  //   background-color: #0524428b;
-  //   position: absolute;
-  //   bottom: -10px;
-  //   left: 0;
-  // }
-
-  // &:hover:before {
-  //   bottom: 0;
-  // }
-
   &:hover {
     background: #1568bd;
   }

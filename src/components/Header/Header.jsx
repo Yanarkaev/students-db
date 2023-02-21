@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,22 +8,13 @@ import { Button } from "../iu";
 
 export const Header = () => {
   const token = useSelector(authToken);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  // const [currentUser, setCurrentUser] = useState(token);
   const currentUser = decodeJwt(localStorage.getItem("token"));
-  console.log(currentUser);
-  console.log(token);
 
   const handleSignOut = (e) => {
-     dispatch(userLogout())
-  }
-
-  // useEffect(() => {
-  //   if (token) {
-  //     setCurrentUser(decoded);
-  //   }
-  // }, [token]);
+    dispatch(userLogout());
+  };
 
   return (
     <div className={styles.Header}>
@@ -35,7 +26,7 @@ export const Header = () => {
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
         >
-          главная
+          Главная
         </NavLink>
         <NavLink
           to="/reception"
@@ -88,7 +79,9 @@ export const Header = () => {
 
       <div className={styles.auth}>
         {token ? (
-          <Button variant="exit" onClick={handleSignOut}>ВЫЙТИ</Button>
+          <Button variant="exit" onClick={handleSignOut}>
+            ВЫЙТИ
+          </Button>
         ) : (
           <NavLink
             to="/signin"
