@@ -13,7 +13,6 @@ function AddStudent() {
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
-
     details: "По другим причинам",
   });
   const [dataStatus, setDataStatus] = useState({
@@ -22,6 +21,8 @@ function AddStudent() {
     to: "",
     details: "",
   });
+
+  console.log(data)
 
   const isAdded = useSelector((state) => state.students.isAdded);
 

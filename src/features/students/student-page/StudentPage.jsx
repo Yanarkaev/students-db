@@ -41,7 +41,7 @@ const StudentPage = () => {
           to: student.relocation?.to,
         },
         changeDate: student.changeDate,
-        details: student.details,
+        details: student.details || "Невыполнение условий договора",
       });
     }
   }, [student]);
@@ -53,6 +53,7 @@ const StudentPage = () => {
   const handleChangeRelocation = (e) => {
     setChangesData({
       ...changesData,
+      details: "",
       relocation: {
         ...changesData.relocation,
         [e.target.name]: e.target.value,
@@ -60,13 +61,26 @@ const StudentPage = () => {
     });
   };
 
-  useEffect(() => {
+  const handleChangeDetails = (e) => {
     setChangesData({
       ...changesData,
-      relocation: { from: "", to: "" },
-      details: "Невыполнение условий договора",
+      details: e.target.value,
+      relocation: {
+        from: "",
+        to: "",
+      },
     });
-  }, [changesData?.status]);
+  };
+
+  console.log(student);
+
+  // useEffect(() => {
+  //   setChangesData({
+  //     ...changesData,
+  //     relocation: { from: "", to: "" },
+  //     details: "Невыполнение условий договора",
+  //   });
+  // }, [changesData?.status]);
 
   const handleSubmit = (e) => {
     setChangesOn(false);
@@ -229,7 +243,7 @@ const StudentPage = () => {
                     <select
                       name="details"
                       value={changesData.details}
-                      onChange={handleChangeData}
+                      onChange={handleChangeDetails}
                     >
                       <option value="Невыполнение условий договора">
                         Невыполнение условий договора

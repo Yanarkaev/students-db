@@ -59,6 +59,12 @@ export const addStudents = createAsyncThunk(
 export const changeStudentData = createAsyncThunk(
   "students/changeStudent",
   async ({ id, data }, thunkAPI) => {
+    const newData = {
+      ...data,
+      relocation:
+        data.status !== "Перевод" ? { from: "", to: "" } : data.relocation,
+      details: data.status !== "Отчислен" ? "" : data.details,
+    };
     try {
       const response = await fetch(
         "http://localhost:3001/students/student/" + id,
@@ -68,7 +74,7 @@ export const changeStudentData = createAsyncThunk(
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(newData),
         }
       );
 
