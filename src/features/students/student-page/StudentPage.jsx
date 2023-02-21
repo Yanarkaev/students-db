@@ -9,21 +9,16 @@ import { getStudent } from "./../studentsSlice";
 const StudentPage = () => {
   const { studentId } = useParams();
   const [changesOn, setChangesOn] = useState(false);
-  // const [student, setStudent] = useState();
+
   const [changesData, setChangesData] = useState({});
 
   const dispatch = useDispatch();
 
   const student = useSelector(getStudent);
-  // console.log(currentStudent);
 
   useEffect(() => {
     dispatch(getStudentById(studentId));
   }, [dispatch, studentId]);
-
-  // useEffect(() => {
-  //   setStudent(currentStudent);
-  // }, [currentStudent]);
 
   useEffect(() => {
     if (student) {
@@ -71,16 +66,6 @@ const StudentPage = () => {
       },
     });
   };
-
-  console.log(student);
-
-  // useEffect(() => {
-  //   setChangesData({
-  //     ...changesData,
-  //     relocation: { from: "", to: "" },
-  //     details: "Невыполнение условий договора",
-  //   });
-  // }, [changesData?.status]);
 
   const handleSubmit = (e) => {
     setChangesOn(false);

@@ -21,8 +21,6 @@ function AddStudent() {
     to: "",
   });
 
-  console.log(data)
-
   const isAdded = useSelector((state) => state.students.isAdded);
 
   useEffect(() => {
@@ -39,7 +37,7 @@ function AddStudent() {
         details: "",
       });
     }
-  }, [isAdded]);
+  }, [isAdded]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [isValid, setIsValid] = useState(true);
 
@@ -60,7 +58,7 @@ function AddStudent() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addStudents(data));
+    dispatch(addStudents({ data: data, status: dataStatus }));
   };
 
   const handleSelect = (e) => {
@@ -145,6 +143,7 @@ function AddStudent() {
           >
             <option value="Очно">Очно</option>
             <option value="Заочно">Заочно</option>
+            <option value="Очно-заочно">Очно-заочно</option>
           </select>
         </label>
         <label className={styles.label} htmlFor="eduction">

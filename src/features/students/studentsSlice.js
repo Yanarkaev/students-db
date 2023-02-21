@@ -32,7 +32,7 @@ export const fetchStudents = createAsyncThunk(
 
 export const addStudents = createAsyncThunk(
   "students/addStudents",
-  async (data, thunkAPI) => {
+  async ({ data, status }, thunkAPI) => {
     try {
       const response = await fetch("http://localhost:3001/students/", {
         method: "POST",
@@ -40,7 +40,7 @@ export const addStudents = createAsyncThunk(
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ data, status }),
       });
 
       const res = await response.json();
@@ -156,7 +156,6 @@ const studentsSlice = createSlice({
     filterReset: (state) => {
       state.filteredStudents = [];
     },
-
     resetIsAdded: (state, action) => {
       state.isAdded = false;
     },
@@ -169,12 +168,10 @@ const studentsSlice = createSlice({
       })
       .addCase(addStudents.fulfilled, (state, action) => {
         state.loading = false;
-        state.students = action.payload;
         state.isAdded = true;
       })
       .addCase(addStudents.rejected, (state, action) => {
         state.loading = false;
-        // state.error = action.error.message;
         state.error = action.payload;
         state.isAdded = false;
       })
@@ -190,7 +187,6 @@ const studentsSlice = createSlice({
       .addCase(fetchStudents.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        // state.error = action.error.message;
       })
       .addCase(changeStudentData.pending, (state, action) => {
         state.loading = true;

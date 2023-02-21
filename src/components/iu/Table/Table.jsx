@@ -24,7 +24,9 @@ export const Table = ({ columns, rows, ref }) => {
           sheet="students"
           currentTableRef={tableRef.current}
         >
-          <Button variant="enter" className={styles.exelBtn}> Скачать в Excel </Button>
+          <Button variant="enter" className={styles.exelBtn}>
+            Скачать в Excel
+          </Button>
         </DownloadTableExcel>
       </div>
       <table className={styles.Table} ref={tableRef}>

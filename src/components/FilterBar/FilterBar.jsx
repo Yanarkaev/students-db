@@ -25,6 +25,7 @@ export const FilterBar = () => {
     educationForm: false,
     educationType: false,
     details: false,
+    isActive: false,
   });
   const [timerData, setTimerData] = useState({
     startDate: "",
@@ -106,13 +107,18 @@ export const FilterBar = () => {
     ],
   };
   const handleFilterTime = async (e) => {
-    setTimerData({ ...timerData, [e.target.name]: e.target.value });
+    setTimerData({
+      ...timerData,
+      [e.target.name]: e.target.value,
+    });
+    setData({ ...data, isActive: false });
   };
 
   const handleFilter = async (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value, isActive: false });
   };
   const resetFilter = () => {
+    dispatch(filterReset());
     filterSelect.forEach((item) => {
       let select = document.getElementById(item.name + 1);
       select.value = false;
@@ -126,6 +132,7 @@ export const FilterBar = () => {
       educationForm: false,
       educationType: false,
       details: false,
+      isActive: false,
     });
     setTimerData({
       startDate: "",
@@ -134,13 +141,14 @@ export const FilterBar = () => {
     });
   };
 
+  const useFilter = () => {
+    setData({ ...data, isActive: true });
+    dispatch(filterStudents({ data, timerData }));
+  };
+
   useEffect(() => {
     dispatch(filterReset());
   }, [title, dispatch]);
-  useEffect(() => {
-    dispatch(filterStudents({ data, timerData }));
-  }, [data, timerData, dispatch]);
-
   return (
     <div className={`${styles.FilterBar}`}>
       <div className={styles.header}>
@@ -203,8 +211,15 @@ export const FilterBar = () => {
       </div>
 
       <div className={styles.resetButton}>
-        <div>Найдено по фильтру:{filteredStudents.length}</div>
-        <Button children="Сбросить" onClick={resetFilter} />
+        <div>
+          <Button children="Применить" onClick={useFilter} />
+          <Button children="Сбросить" onClick={resetFilter} />
+        </div>
+        {data.isActive ? (
+          <div>Найдено по фильтру:{filteredStudents.length}</div>
+        ) : (
+          <div>{!data.isActive && "фильт не применен"}</div>
+        )}
       </div>
     </div>
   );
