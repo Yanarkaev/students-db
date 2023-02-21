@@ -29,16 +29,16 @@ const TablePage = () => {
   useEffect(() => {
     switch (title) {
       case "reception":
-        dispatch(fetchStudents("принят"));
+        dispatch(fetchStudents("Принят"));
         break;
       case "transfer":
-        dispatch(fetchStudents("transfer"));
+        dispatch(fetchStudents("Перевод"));
         break;
       case "expulsion":
-        dispatch(fetchStudents("отчислен"));
+        dispatch(fetchStudents("Отчислен"));
         break;
       default:
-        dispatch(fetchStudents("все"));
+        dispatch(fetchStudents("Все"));
         break;
     }
     console.log(title);
