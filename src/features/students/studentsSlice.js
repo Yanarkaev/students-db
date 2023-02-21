@@ -162,7 +162,7 @@ const studentsSlice = createSlice({
       })
       .addCase(addStudents.fulfilled, (state, action) => {
         state.loading = false;
-        state.students = state.students.concat(action.payload);
+        state.students = action.payload;
         state.isAdded = true;
       })
       .addCase(addStudents.rejected, (state, action) => {
@@ -177,7 +177,9 @@ const studentsSlice = createSlice({
       })
       .addCase(fetchStudents.fulfilled, (state, action) => {
         state.loading = false;
+        state.error = null;
         state.students = action.payload;
+        console.log(action.payload);
       })
       .addCase(fetchStudents.rejected, (state, action) => {
         state.loading = false;
