@@ -11,6 +11,9 @@ export const useStudentsCounting = (students) => {
   let accepted = 0; // принят
   let transferred = 0; // переведен
 
+  let men = 0;
+  let woman = 0;
+
   for (const item of students) {
     if (item.educationForm === "Очно") {
       fullTime++;
@@ -33,6 +36,12 @@ export const useStudentsCounting = (students) => {
     if (item.status === "Перевод") {
       transferred++;
     }
+    if (item.gender === "Мужской") {
+      men++;
+    }
+    if (item.gender === "Женский") {
+      woman++;
+    }
   }
   return [
     studentsCount,
@@ -43,5 +52,7 @@ export const useStudentsCounting = (students) => {
     accepted,
     deducted,
     transferred,
+    men,
+    woman,
   ];
 };

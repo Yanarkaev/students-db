@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { DownloadTableExcel } from "react-export-table-to-excel";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FilterBar } from "../components";
-import { Button } from "../components/iu";
+
 import { Table } from "../components/iu/Table/Table";
 import StrudentsInfo from "../components/StudentsInfo/StrudentsInfo";
 import { fetchStudents } from "../features/students/studentsSlice";

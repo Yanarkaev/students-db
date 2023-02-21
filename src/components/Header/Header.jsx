@@ -1,14 +1,11 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Button } from "../iu";
+import { NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { useSelector } from "react-redux";
 import { authToken } from "../../features/auth-page/userSlice";
 import { decodeJwt } from "./../../shared/helpers/decodeJwt";
 
 export const Header = () => {
-  const navigate = useNavigate();
-
   const token = useSelector(authToken);
 
   const currentUser = decodeJwt(token);

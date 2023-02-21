@@ -169,7 +169,7 @@ function AddStudent() {
         type="date"
       />
       <div className={styles.inputGroups}>
-        {data.status === "Перевод" && (
+        {dataStatus.status === "Перевод" && (
           <>
             <Input
               value={data.from}
