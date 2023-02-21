@@ -8,6 +8,16 @@
   top: 20%;
   translate: -50%;
 
+  .error{
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    translate: -50%;
+    color: rgb(168, 0, 0);
+    font-weight: 600;
+    width: 100%;
+  }
+
   h1 {
     margin-bottom: 50px;
     font-size: 40px;

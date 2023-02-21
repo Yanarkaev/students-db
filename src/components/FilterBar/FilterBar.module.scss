@@ -1,5 +1,4 @@
 .FilterBar {
-  // background-color: rgb(127, 186, 231);
   max-width: 1100px;
   margin: 10px auto 40px;
   padding: 20px 0px;
@@ -10,7 +9,7 @@
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
-  // align-items: center;
+
   .header {
     width: 100%;
     display: flex;
@@ -24,12 +23,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    span {
-      width: 20px;
-    }
+
     * {
       margin: 2.5px 0;
     }
+
+    span {
+      width: 20px;
+    }
+
     div:not(:last-of-type) {
       margin-bottom: 10px;
     }
@@ -91,11 +93,8 @@
       background-color: rgb(240, 240, 240);
       padding: 10px;
       min-height: 40px;
-      // -webkit-appearance: none;
-      // -moz-appearance: none;
       cursor: pointer;
       border-radius: 5px;
-      // margin: 5px 0;
       outline-color: #197de3;
 
       &:hover,
@@ -108,32 +107,52 @@
   .inputs {
     align-items: center;
     justify-content: space-between;
+  }
 
-    .filterInput:not(:last-of-type) {
+  .filterInput {
+    select {
       margin-bottom: 10px;
-    }
-    .filterInput {
-      font-size: 16px;
-
-      input {
-        height: 40px;
-        padding: 10px;
-        border-width: 1px;
-        border-radius: 5px;
+      &:not(:last-of-type) {
+        margin-bottom: 20px;
       }
     }
+
+    input {
+      height: 40px;
+      padding: 10px;
+      border-width: 1px;
+      border-radius: 5px;
+    }
   }
-  .resetButton {
+  .resetButtons {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: 10px 0;
     width: 100%;
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 5px;
+
+      &:not(:last-of-type) {
+        margin-right: 10px;
+      }
+    }
+
+    .resetBtn {
+      background-color: #da672a;
+
+      &:hover {
+        background-color: #a54e1e;
+      }
+    }
     * {
       width: fit-content;
       margin: 5px 0;
     }
   }
-  // }
 }

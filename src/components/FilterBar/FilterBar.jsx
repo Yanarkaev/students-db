@@ -210,10 +210,14 @@ export const FilterBar = () => {
         )}
       </div>
 
-      <div className={styles.resetButton}>
+      <div className={styles.resetButtons}>
         <div>
-          <Button children="Применить" onClick={useFilter} />
-          <Button children="Сбросить" onClick={resetFilter} />
+          <Button className={styles.resetBtn} onClick={resetFilter}>
+            Сбросить
+          </Button>
+          <Button variant="enter" onClick={useFilter}>
+            Применить
+          </Button>
         </div>
         {data.isActive ? (
           <div>Найдено по фильтру:{filteredStudents.length}</div>

@@ -2,6 +2,9 @@
   width: 100%;
   max-width: 1300px;
   margin: 10px auto 50px;
+  padding: 0 5px;
+  overflow-x: auto;
+
   .Table {
     font-weight: 400;
     font-size: 14px;
@@ -10,7 +13,6 @@
     text-align: center;
     border-collapse: collapse;
     border-spacing: 10px 5px;
-    // box-shadow: 0 6px 18px rgb(0 0 0 / 6%);
     border-radius: 10px;
     overflow: hidden;
     background-color: transparent;
@@ -42,9 +44,7 @@
       font-size: 15px;
       line-height: 20px;
       letter-spacing: 0.01em;
-      // background: #edf6ff;
       color: black;
-      // cursor: pointer;
     }
 
     td:last-child,
@@ -60,9 +60,6 @@
     td {
       padding: 10px 20px;
       color: black;
-      // background-color: rgb(240, 240, 240);
-
-      // border: 1px solid #3e4a514f;
     }
   }
   .exporter {
@@ -74,7 +71,6 @@
       border-radius: 0;
       font-size: 16px;
       padding: 7px 15px;
-      // margin-left: auto;
     }
   }
 }
