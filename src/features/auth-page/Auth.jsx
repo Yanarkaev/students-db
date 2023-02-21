@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Input } from "../../components/iu";
 import styles from "./Auth.module.scss";
 import { signInUser } from "./userSlice";
@@ -10,10 +10,18 @@ const Auth = () => {
     password: "",
   });
 
+  const authError = useSelector((state) => state.user.error);
+
+  const [error, setError] = useState(authError);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setError(authError);
+  }, [authError]);
 
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    setError(false);
   };
 
   const handleAuth = (e) => {
@@ -23,6 +31,7 @@ const Auth = () => {
   return (
     <div className={styles.Auth}>
       <h1>Вход</h1>
+      {{error} && <div className={styles.error}>{error}</div>}
 
       <form onSubmit={handleAuth}>
         <Input
@@ -33,6 +42,7 @@ const Auth = () => {
           variant="outlined"
           type="text"
           className={styles.input}
+          
         />
         <Input
           name="password"

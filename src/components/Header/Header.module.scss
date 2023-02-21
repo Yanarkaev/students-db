@@ -1,18 +1,21 @@
 .Header {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   max-width: 1250px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 5px;
 
-  & * {
+  * {
     font-weight: 500;
   }
 
   .nav {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     .navLink {
       border-radius: 5px;
@@ -26,6 +29,10 @@
       position: relative;
       transition: 0.2s;
       overflow: hidden;
+
+      &:not(:last-child) {
+        margin-right: 25px;
+      }
 
       &::before {
         transition: 0.2s;
@@ -47,10 +54,6 @@
         background: #1568bd;
         padding: 4px 20px;
       }
-    }
-
-    .navLink:not(:last-child) {
-      margin-right: 25px;
     }
 
     .activeLink {
@@ -80,6 +83,35 @@
       transition: 0.2s;
       &:hover {
         background: #297c23;
+      }
+    }
+
+    button {
+      font-size: 16px;
+      padding: 5px 15px;
+      border-radius: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .Header {
+    font-size: 14px;
+
+    .nav {
+      .navLink {
+        font-size: 16px;
+        max-height: 20px;
+        padding: 12px 20px;
+        margin-bottom: 5px;
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
+
+        &:hover {
+          background: #1568bd;
+          padding: 6px 20px;
+        }
       }
     }
   }

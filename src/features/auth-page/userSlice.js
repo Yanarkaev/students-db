@@ -99,6 +99,7 @@ export const userSlice = createSlice({
       //Авторизация пользователя
       .addCase(signInUser.pending, (state, action) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.loading = false;

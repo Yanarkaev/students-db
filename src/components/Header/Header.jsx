@@ -83,14 +83,7 @@ export const Header = () => {
             ВЫЙТИ
           </Button>
         ) : (
-          <NavLink
-            to="/signin"
-            // className={({ isActive }) =>
-            //   `${styles.navLink} ${isActive ? styles.activeLink : ""}`
-            // }
-          >
-            Войти
-          </NavLink>
+          <NavLink to="/signin">Войти</NavLink>
         )}
       </div>
     </div>
