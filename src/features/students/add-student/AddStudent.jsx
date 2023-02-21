@@ -20,7 +20,6 @@ function AddStudent() {
     status: "Принят",
     from: "",
     to: "",
-    details: "",
   });
 
   const isAdded = useSelector((state) => state.students.isAdded);
@@ -40,8 +39,19 @@ function AddStudent() {
       });
     }
   }, [isAdded]);
-  // const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
-  //   .length;
+
+  const [isValid, setIsValid] = useState(true);
+
+  useEffect(() => {
+    const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
+      .length;
+
+    const statusChecker =
+      dataStatus.status === "Перевод"
+        ? !!Object.values(dataStatus).filter((el) => el.trim() === "").length
+        : "";
+    setIsValid(!dataChecker && !statusChecker);
+  }, [data, dataStatus]);
 
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -56,7 +66,7 @@ function AddStudent() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const hadleStatus = (e, type) => {
+  const hadleStatus = (e) => {
     setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
   };
   const reasons = [
@@ -172,22 +182,22 @@ function AddStudent() {
         {dataStatus.status === "Перевод" && (
           <>
             <Input
-              value={data.from}
+              value={dataStatus.from}
               name="from"
-              onChange={handleSelect}
+              onChange={hadleStatus}
               placeholder="Из"
             />
             <Input
-              value={data.to}
+              value={dataStatus.to}
               name="to"
-              onChange={handleSelect}
+              onChange={hadleStatus}
               placeholder="В"
             />
           </>
         )}
 
         {dataStatus.status === "Отчислен" && (
-          <select value={data.details} name="details" onChange={hadleStatus}>
+          <select value={data.details} name="details" onChange={handleData}>
             {reasons.map(([value, item], index) => (
               <option key={index} value={value}>
                 {item}
@@ -196,7 +206,11 @@ function AddStudent() {
           </select>
         )}
       </div>
-      <Button onClick={handleClick} variant="categories">
+      <Button
+        disabled={!isValid ? "disabled" : ""}
+        onClick={handleClick}
+        variant="categories"
+      >
         Добавить
       </Button>
       {isAdded && <div color="green">Студент добавлен</div>}
