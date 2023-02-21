@@ -87,13 +87,11 @@ export const userSlice = createSlice({
         state.isAdded = false;
       })
       .addCase(signUpUser.rejected, (state, action) => {
-        console.log(action);
         state.isAdded = false;
         state.loading = false;
         state.error = action.payload;
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
-        console.log(action);
         state.loading = false;
         state.isAdded = true;
         state.error = null;

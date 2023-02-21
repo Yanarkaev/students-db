@@ -113,14 +113,16 @@ const studentsSlice = createSlice({
         let result = [...state.students];
         let keys = Object.keys(action.payload.data);
 
-        let { isActive, endDate, startDate } = action.payload.timerData;
+        let { endDate, startDate } = action.payload.timerData;
 
-        if (isActive) {
+        if (endDate && startDate) {
           const start = new Date(startDate);
           const end = new Date(endDate);
           result = result.filter((student) => {
+            if (start > end) {
+              return false;
+            }
             const rowDate = new Date(student.changeDate);
-            console.log(rowDate >= start && rowDate <= end);
             return rowDate >= start && rowDate <= end;
           });
         }
@@ -141,7 +143,7 @@ const studentsSlice = createSlice({
             return false;
           });
         });
-        console.log(result);
+
         return result;
       })();
     },
@@ -158,7 +160,6 @@ const studentsSlice = createSlice({
       .addCase(addStudents.pending, (state, action) => {
         state.loading = true;
         state.isAdded = false;
-        console.log(action);
       })
       .addCase(addStudents.fulfilled, (state, action) => {
         state.loading = false;
@@ -179,7 +180,6 @@ const studentsSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.students = action.payload;
-        console.log(action.payload);
       })
       .addCase(fetchStudents.rejected, (state, action) => {
         state.loading = false;

@@ -32,7 +32,7 @@ const TablePage = () => {
         dispatch(fetchStudents("принят"));
         break;
       case "transfer":
-        dispatch(fetchStudents("transfer"));
+        dispatch(fetchStudents("Перевод"));
         break;
       case "expulsion":
         dispatch(fetchStudents("отчислен"));
@@ -41,7 +41,6 @@ const TablePage = () => {
         dispatch(fetchStudents("все"));
         break;
     }
-    console.log(title);
   }, [dispatch, title, afterFilter]);
   return (
     <>
