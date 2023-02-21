@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useStudents } from "./../../../shared/hooks/useStudents";
 import { useParams } from "react-router-dom";
 import styles from "./StudentPage.module.scss";
 import { Button, Input } from "./../../../components/iu";

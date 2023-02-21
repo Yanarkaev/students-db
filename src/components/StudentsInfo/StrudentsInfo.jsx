@@ -12,6 +12,8 @@ function StrudentsInfo({ students }) {
     accepted,
     deducted,
     transferred,
+    men,
+    woman,
   ] = useStudentsCounting(students);
 
   return (
@@ -35,6 +37,11 @@ function StrudentsInfo({ students }) {
         <span>{`Принятых: ${accepted} `}</span>
         <span>{`Отчисленых: ${deducted} `}</span>
         <span>{`Переведеных: ${transferred} `}</span>
+      </div>
+      <div className={styles.countGroup}>
+        <span className={styles.groupName}>Пол</span>
+        <span>{`Мужской: ${men} `}</span>
+        <span>{`Женский: ${woman} `}</span>
       </div>
     </div>
   );
