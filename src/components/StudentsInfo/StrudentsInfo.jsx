@@ -18,30 +18,44 @@ function StrudentsInfo({ students }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.countGroup}>
-        <span className={styles.groupName}>Общее количество</span>
-        <span>{`${studentsCount} `}</span>
-      </div>
-      <div className={styles.countGroup}>
-        <span className={styles.groupName}>Форма обучения</span>
-        <span>{`Очное обучение:  ${fullTime} `}</span>
-        <span>{`Заочное обучение:  ${inAbsentia} `}</span>
-      </div>
-      <div className={styles.countGroup}>
-        <span className={styles.groupName}>Тип Обучения</span>
-        <span>{`Бюджет: ${budget} `}</span>
-        <span>{`Коммерция: ${commerce} `}</span>
-      </div>
-      <div className={styles.countGroup}>
-        <span className={styles.groupName}>Статус</span>
-        <span>{`Принятых: ${accepted} `}</span>
-        <span>{`Отчисленых: ${deducted} `}</span>
-        <span>{`Переведеных: ${transferred} `}</span>
-      </div>
-      <div className={styles.countGroup}>
-        <span className={styles.groupName}>Пол</span>
-        <span>{`Мужской: ${men} `}</span>
-        <span>{`Женский: ${woman} `}</span>
+      <div className={styles.inner}>
+        <div className={styles.countGroup}>
+          <span className={styles.groupName}>Общее количество</span>
+          <div>
+            <span> Все: {studentsCount} </span>
+            <span>Муж: {men}</span>
+            <span>Жен: {woman}</span>
+          </div>
+        </div>
+        <div className={styles.countGroup}>
+          <span className={styles.groupName}>Форма обучения</span>
+          <div>
+            <span>{`Очное обучение:  ${fullTime} `}</span>
+            <span>{`Заочное обучение:  ${inAbsentia} `}</span>
+          </div>
+        </div>
+        <div className={styles.countGroup}>
+          <span className={styles.groupName}>Тип Обучения</span>
+          <div>
+            <span>{`Бюджет: ${budget} `}</span>
+            <span>{`Коммерция: ${commerce} `}</span>
+          </div>
+        </div>
+        <div className={styles.countGroup}>
+          <span className={styles.groupName}>Статус</span>
+          <div>
+            <span>{`Принято: ${accepted} `}</span>
+            <span>{`Отчислено: ${deducted} `}</span>
+            <span>{`Переведено: ${transferred} `}</span>
+          </div>
+        </div>
+        {/* <div className={styles.countGroup}>
+          <span className={styles.groupName}>Пол</span>
+          <div>
+            <span>{`Мужской: ${men} `}</span>
+            <span>{`Женский: ${woman} `}</span>
+          </div>
+        </div> */}
       </div>
     </div>
   );
