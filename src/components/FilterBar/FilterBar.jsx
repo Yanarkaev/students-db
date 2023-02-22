@@ -137,7 +137,6 @@ export const FilterBar = () => {
     setTimerData({
       startDate: "",
       endDate: "",
-      isActive: false,
     });
   };
 
@@ -148,7 +147,27 @@ export const FilterBar = () => {
 
   useEffect(() => {
     dispatch(filterReset());
-  }, [title, dispatch]);
+
+    filterSelect.forEach((item) => {
+      let select = document.getElementById(item.name + 1);
+      select.value = false;
+    });
+    setData({
+      fullname: "",
+      department: "",
+      faculty: "",
+      course: false,
+      gender: false,
+      educationForm: false,
+      educationType: false,
+      details: false,
+      isActive: false,
+    });
+    setTimerData({
+      startDate: "",
+      endDate: "",
+    });
+  }, [title, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className={`${styles.FilterBar}`}>
       <div className={styles.header}>
@@ -212,10 +231,18 @@ export const FilterBar = () => {
 
       <div className={styles.resetButtons}>
         <div>
-          <Button className={styles.resetBtn} onClick={resetFilter}>
+          <Button
+            className={styles.resetBtn}
+            onClick={resetFilter}
+            isabled={!data.isActive ? "disabled" : ""}
+          >
             Сбросить
           </Button>
-          <Button variant="enter" onClick={useFilter}>
+          <Button
+            variant="enter"
+            onClick={useFilter}
+            disabled={data.isActive ? "disabled" : ""}
+          >
             Применить
           </Button>
         </div>
