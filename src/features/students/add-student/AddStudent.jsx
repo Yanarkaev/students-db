@@ -3,7 +3,12 @@ import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
 import { addStudents, resetIsAdded } from "../studentsSlice";
+import { decodeJwt } from "./../../../shared/helpers/decodeJwt";
+import { authToken } from "../../auth-page/userSlice";
 function AddStudent() {
+  const token = useSelector(authToken);
+  const currentUser = decodeJwt(token);
+
   const [data, setData] = useState({
     fullname: "",
     gender: "Мужской",
@@ -68,6 +73,7 @@ function AddStudent() {
   const hadleStatus = (e) => {
     setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
   };
+
   const reasons = [
     ["По другим причинам", "По другим причинам"],
     ["Невыполнение условий договора", "Невыполнение условий договора"],
@@ -84,6 +90,18 @@ function AddStudent() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.userInfo}>
+        <div>
+          <span>ФИО:</span> <span> {currentUser.fullname} </span>
+        </div>
+        <div>
+          <span> Организация:</span> <span> {currentUser.department} </span>
+        </div>
+        <div>
+          <span>Должность: </span>
+          <span> {currentUser.jobTitle} </span>
+        </div>
+      </div>
       <h1>Добавление студента</h1>
       <div className={styles.fullnameContainer}>
         <Input
