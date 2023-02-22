@@ -5,16 +5,20 @@ import { Button, Input } from "./../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
 import { changeStudentData, getStudentById } from "../studentsSlice";
 import { getStudent } from "./../studentsSlice";
+import { authToken } from "../../auth-page/userSlice";
+import { decodeJwt } from "./../../../shared/helpers/decodeJwt";
 
 const StudentPage = () => {
   const { studentId } = useParams();
-  const [changesOn, setChangesOn] = useState(false);
-
-  const [changesData, setChangesData] = useState({});
-
   const dispatch = useDispatch();
 
   const student = useSelector(getStudent);
+  const token = useSelector(authToken);
+
+  const currentUser = decodeJwt(token);
+
+  const [changesOn, setChangesOn] = useState(false);
+  const [changesData, setChangesData] = useState({});
 
   useEffect(() => {
     dispatch(getStudentById(studentId));
@@ -282,22 +286,24 @@ const StudentPage = () => {
           </div>
         </section>
 
-        <div className={styles.buttons}>
-          {!changesOn ? (
-            <Button variant="enter" onClick={() => setChangesOn(!changesOn)}>
-              Редактировать
-            </Button>
-          ) : (
-            <>
-              <Button variant="enter" onClick={handleSubmit}>
-                Подтвердить
+        {student?.addedBy === currentUser?.id && (
+          <div className={styles.buttons}>
+            {!changesOn ? (
+              <Button variant="enter" onClick={() => setChangesOn(!changesOn)}>
+                Редактировать
               </Button>
-              <Button variant="exit" onClick={() => setChangesOn(!changesOn)}>
-                Отменить
-              </Button>
-            </>
-          )}
-        </div>
+            ) : (
+              <>
+                <Button variant="enter" onClick={handleSubmit}>
+                  Подтвердить
+                </Button>
+                <Button variant="exit" onClick={() => setChangesOn(!changesOn)}>
+                  Отменить
+                </Button>
+              </>
+            )}
+          </div>
+        )}
       </div>
     );
   }

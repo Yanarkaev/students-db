@@ -75,6 +75,7 @@ export const FilterBar = () => {
       ],
     },
   ];
+
   const filterInput = [
     {
       placeholder: "ФИО",
@@ -89,6 +90,7 @@ export const FilterBar = () => {
       name: "faculty",
     },
   ];
+
   const { headerDetail, reasons } = {
     headerDetail: "Причина",
     reasons: [
@@ -106,6 +108,7 @@ export const FilterBar = () => {
       ["Перевод в другой ВУЗ", "Перевод в другой ВУЗ"],
     ],
   };
+
   const handleFilterTime = async (e) => {
     setTimerData({
       ...timerData,
@@ -117,12 +120,14 @@ export const FilterBar = () => {
   const handleFilter = async (e) => {
     setData({ ...data, [e.target.name]: e.target.value, isActive: false });
   };
+
   const resetFilter = () => {
     dispatch(filterReset());
     filterSelect.forEach((item) => {
       let select = document.getElementById(item.name + 1);
       select.value = false;
     });
+
     setData({
       fullname: "",
       department: "",
@@ -134,6 +139,7 @@ export const FilterBar = () => {
       details: false,
       isActive: false,
     });
+
     setTimerData({
       startDate: "",
       endDate: "",
@@ -212,15 +218,15 @@ export const FilterBar = () => {
 
       <div className={styles.resetButtons}>
         <div>
-          <Button className={styles.resetBtn} onClick={resetFilter}>
+          <Button className={styles.resetBtn} onClick={resetFilter} disabled={!data.isActive? 'disabled' : ''}>
             Сбросить
           </Button>
-          <Button variant="enter" onClick={useFilter}>
+          <Button variant="enter" onClick={useFilter} disabled={data.isActive? 'disabled' : ''}>
             Применить
           </Button>
         </div>
         {data.isActive ? (
-          <div>Найдено по фильтру:{filteredStudents.length}</div>
+          <div>Найдено по фильтру: {filteredStudents.length}</div>
         ) : (
           <div>{!data.isActive && "фильт не применен"}</div>
         )}
