@@ -11,8 +11,8 @@ import styles from "./FilterBar.module.scss";
 
 export const FilterBar = () => {
   const { title } = useParams();
-
   const dispatch = useDispatch();
+
   const filteredStudents = useSelector(
     (state) => state.students.filteredStudents
   );
@@ -168,6 +168,7 @@ export const FilterBar = () => {
       endDate: "",
     });
   }, [title, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className={`${styles.FilterBar}`}>
       <div className={styles.header}>
@@ -234,7 +235,7 @@ export const FilterBar = () => {
           <Button
             className={styles.resetBtn}
             onClick={resetFilter}
-            isabled={!data.isActive ? "disabled" : ""}
+            disabled={!data.isActive ? "disabled" : ""}
           >
             Сбросить
           </Button>
