@@ -15,11 +15,18 @@ const StudentPage = () => {
   const student = useSelector(getStudent);
   const token = useSelector(authToken);
 
+
   const currentUser = decodeJwt(token);
 
   const [changesOn, setChangesOn] = useState(false);
   const [changesData, setChangesData] = useState({});
 
+
+  const currentUser = decodeJwt(token);
+
+  const [changesOn, setChangesOn] = useState(false);
+  const [changesData, setChangesData] = useState({});
+  console.log(changesData);
   useEffect(() => {
     dispatch(getStudentById(studentId));
   }, [dispatch, studentId]);
@@ -35,6 +42,7 @@ const StudentPage = () => {
         educationForm: student.educationForm,
         educationType: student.educationType,
         status: student.status,
+        direction: student.direction,
         relocation: {
           from: student.relocation?.from,
           to: student.relocation?.to,
@@ -133,11 +141,10 @@ const StudentPage = () => {
             {changesOn ? (
               <Input
                 className={styles.changeInput}
-                type="number"
+                type="text"
                 name="group"
                 onChange={handleChangeData}
                 value={changesData.group}
-                min="1"
               />
             ) : (
               <b>{student.group}</b>
@@ -156,6 +163,20 @@ const StudentPage = () => {
               />
             ) : (
               <b>{student.faculty}</b>
+            )}
+          </div>
+          <div className={styles.infoItem}>
+            <span>Направление: </span>
+            {changesOn ? (
+              <Input
+                className={styles.changeInput}
+                name="direction"
+                onChange={handleChangeData}
+                value={changesData.direction}
+                min="1"
+              />
+            ) : (
+              <b>{student.direction}</b>
             )}
           </div>
 

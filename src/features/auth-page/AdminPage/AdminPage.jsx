@@ -9,7 +9,9 @@ export const AdminPage = () => {
   const dispatch = useDispatch();
 
   const isAdded = useSelector((state) => state.user.isAdded);
+
   const error = useSelector((state) => state.user.error);
+
 
   const token = useSelector(authToken);
   const currentUser = decodeJwt(token);

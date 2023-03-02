@@ -11,8 +11,8 @@ import styles from "./FilterBar.module.scss";
 
 export const FilterBar = () => {
   const { title } = useParams();
-
   const dispatch = useDispatch();
+
   const filteredStudents = useSelector(
     (state) => state.students.filteredStudents
   );
@@ -26,7 +26,10 @@ export const FilterBar = () => {
     educationType: false,
     details: false,
     isActive: false,
+    direction: "",
+    group: "",
   });
+  console.log(data);
   const [timerData, setTimerData] = useState({
     startDate: "",
     endDate: "",
@@ -81,6 +84,7 @@ export const FilterBar = () => {
       placeholder: "ФИО",
       name: "fullname",
     },
+
     {
       placeholder: "ВУЗ",
       name: "department",
@@ -88,6 +92,14 @@ export const FilterBar = () => {
     {
       placeholder: "Факультет",
       name: "faculty",
+    },
+    {
+      placeholder: "Направление",
+      name: "direction",
+    },
+    {
+      placeholder: "Группа",
+      name: "group",
     },
   ];
 
@@ -138,12 +150,13 @@ export const FilterBar = () => {
       educationType: false,
       details: false,
       isActive: false,
+      direction: "",
+      group: "",
     });
 
     setTimerData({
       startDate: "",
       endDate: "",
-      isActive: false,
     });
   };
 
@@ -154,7 +167,28 @@ export const FilterBar = () => {
 
   useEffect(() => {
     dispatch(filterReset());
-  }, [title, dispatch]);
+
+    filterSelect.forEach((item) => {
+      let select = document.getElementById(item.name + 1);
+      select.value = false;
+    });
+    setData({
+      fullname: "",
+      department: "",
+      faculty: "",
+      course: false,
+      gender: false,
+      educationForm: false,
+      educationType: false,
+      details: false,
+      isActive: false,
+    });
+    setTimerData({
+      startDate: "",
+      endDate: "",
+    });
+  }, [title, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className={`${styles.FilterBar}`}>
       <div className={styles.header}>
@@ -218,10 +252,18 @@ export const FilterBar = () => {
 
       <div className={styles.resetButtons}>
         <div>
-          <Button className={styles.resetBtn} onClick={resetFilter} disabled={!data.isActive? 'disabled' : ''}>
+          <Button
+            className={styles.resetBtn}
+            onClick={resetFilter}
+            disabled={!data.isActive ? "disabled" : ""}
+          >
             Сбросить
           </Button>
-          <Button variant="enter" onClick={useFilter} disabled={data.isActive? 'disabled' : ''}>
+          <Button
+            variant="enter"
+            onClick={useFilter}
+            disabled={data.isActive ? "disabled" : ""}
+          >
             Применить
           </Button>
         </div>

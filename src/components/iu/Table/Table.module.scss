@@ -65,12 +65,14 @@
   .exporter {
     width: 100%;
     margin: 20px 0;
+    display: flex;
 
     .exelBtn {
       display: block;
       border-radius: 0;
       font-size: 16px;
       padding: 7px 15px;
+      margin-left: 10px;
     }
   }
 }

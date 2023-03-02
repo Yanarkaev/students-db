@@ -15,6 +15,7 @@ function AddStudent() {
     faculty: "",
     course: "",
     group: "",
+    direction: "",
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
@@ -33,13 +34,10 @@ function AddStudent() {
       setData({
         ...data,
         fullname: "",
-        gender: "Мужской",
         faculty: "",
         course: "",
         group: "",
-        from: "",
-        to: "",
-        details: "",
+        direction: "",
       });
     }
   }, [isAdded]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -49,7 +47,6 @@ function AddStudent() {
   useEffect(() => {
     const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
       .length;
-
     const statusChecker =
       dataStatus.status === "Перевод"
         ? !!Object.values(dataStatus).filter((el) => el.trim() === "").length
@@ -133,6 +130,14 @@ function AddStudent() {
       </div>
       <div className={styles.inputGroups}>
         <Input
+          value={data.direction}
+          name="direction"
+          onChange={handleData}
+          placeholder="Направление"
+        />
+      </div>
+      <div className={styles.inputGroups}>
+        <Input
           type="number"
           value={data.course}
           name="course"
@@ -143,7 +148,6 @@ function AddStudent() {
       </div>
       <div className={styles.inputGroups}>
         <Input
-          type="number"
           value={data.group}
           name="group"
           onChange={handleData}
