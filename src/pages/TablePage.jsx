@@ -18,6 +18,7 @@ const TablePage = () => {
     { value: "department", displayValue: "ВУЗ" },
     { value: "status", displayValue: "Статус" },
     { value: "faculty", displayValue: "Факультет" },
+    { value: "direction", displayValue: "Направление" },
     { value: "course", displayValue: "Курс" },
     { value: "group", displayValue: "Группа" },
     { value: "educationForm", displayValue: "Форма обучения" },
@@ -47,6 +48,7 @@ const TablePage = () => {
       <FilterBar tableRef={tableRef} />
       <StrudentsInfo students={!!afterFilter.length ? afterFilter : students} />
       <Table
+        students={!!afterFilter.length ? afterFilter : students}
         columns={columns}
         rows={!!afterFilter.length ? afterFilter : students}
       />

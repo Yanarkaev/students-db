@@ -26,7 +26,10 @@ export const FilterBar = () => {
     educationType: false,
     details: false,
     isActive: false,
+    direction: "",
+    group: "",
   });
+  console.log(data);
   const [timerData, setTimerData] = useState({
     startDate: "",
     endDate: "",
@@ -75,11 +78,13 @@ export const FilterBar = () => {
       ],
     },
   ];
+
   const filterInput = [
     {
       placeholder: "ФИО",
       name: "fullname",
     },
+
     {
       placeholder: "ВУЗ",
       name: "department",
@@ -88,7 +93,16 @@ export const FilterBar = () => {
       placeholder: "Факультет",
       name: "faculty",
     },
+    {
+      placeholder: "Направление",
+      name: "direction",
+    },
+    {
+      placeholder: "Группа",
+      name: "group",
+    },
   ];
+
   const { headerDetail, reasons } = {
     headerDetail: "Причина",
     reasons: [
@@ -106,6 +120,7 @@ export const FilterBar = () => {
       ["Перевод в другой ВУЗ", "Перевод в другой ВУЗ"],
     ],
   };
+
   const handleFilterTime = async (e) => {
     setTimerData({
       ...timerData,
@@ -117,12 +132,14 @@ export const FilterBar = () => {
   const handleFilter = async (e) => {
     setData({ ...data, [e.target.name]: e.target.value, isActive: false });
   };
+
   const resetFilter = () => {
     dispatch(filterReset());
     filterSelect.forEach((item) => {
       let select = document.getElementById(item.name + 1);
       select.value = false;
     });
+
     setData({
       fullname: "",
       department: "",
@@ -133,7 +150,10 @@ export const FilterBar = () => {
       educationType: false,
       details: false,
       isActive: false,
+      direction: "",
+      group: "",
     });
+
     setTimerData({
       startDate: "",
       endDate: "",
@@ -248,7 +268,7 @@ export const FilterBar = () => {
           </Button>
         </div>
         {data.isActive ? (
-          <div>Найдено по фильтру:{filteredStudents.length}</div>
+          <div>Найдено по фильтру: {filteredStudents.length}</div>
         ) : (
           <div>{!data.isActive && "фильт не применен"}</div>
         )}

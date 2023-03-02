@@ -12,12 +12,10 @@
 
   .info {
     font-size: 20px;
-    // margin-bottom: 50px;
 
     .infoItem {
       display: flex;
       align-items: center;
-      // justify-content: space-between;
       padding: 5px;
 
       &:not(:last-of-type) {

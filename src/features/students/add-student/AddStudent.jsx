@@ -3,13 +3,19 @@ import styles from "./AddStudent.module.scss";
 import { Button, Input } from "../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
 import { addStudents, resetIsAdded } from "../studentsSlice";
+import { decodeJwt } from "./../../../shared/helpers/decodeJwt";
+import { authToken } from "../../auth-page/userSlice";
 function AddStudent() {
+  const token = useSelector(authToken);
+  const currentUser = decodeJwt(token);
+
   const [data, setData] = useState({
     fullname: "",
     gender: "Мужской",
     faculty: "",
     course: "",
     group: "",
+    direction: "",
     educationForm: "Очно",
     educationType: "Бюджет",
     changeDate: "",
@@ -28,13 +34,10 @@ function AddStudent() {
       setData({
         ...data,
         fullname: "",
-        gender: "Мужской",
         faculty: "",
         course: "",
         group: "",
-        from: "",
-        to: "",
-        details: "",
+        direction: "",
       });
     }
   }, [isAdded]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -44,7 +47,6 @@ function AddStudent() {
   useEffect(() => {
     const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
       .length;
-
     const statusChecker =
       dataStatus.status === "Перевод"
         ? !!Object.values(dataStatus).filter((el) => el.trim() === "").length
@@ -68,6 +70,7 @@ function AddStudent() {
   const hadleStatus = (e) => {
     setDataStatus({ ...dataStatus, [e.target.name]: e.target.value });
   };
+
   const reasons = [
     ["По другим причинам", "По другим причинам"],
     ["Невыполнение условий договора", "Невыполнение условий договора"],
@@ -84,6 +87,18 @@ function AddStudent() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.userInfo}>
+        <div>
+          <span>ФИО:</span> <span> {currentUser.fullname} </span>
+        </div>
+        <div>
+          <span> Организация:</span> <span> {currentUser.department} </span>
+        </div>
+        <div>
+          <span>Должность: </span>
+          <span> {currentUser.jobTitle} </span>
+        </div>
+      </div>
       <h1>Добавление студента</h1>
       <div className={styles.fullnameContainer}>
         <Input
@@ -115,6 +130,14 @@ function AddStudent() {
       </div>
       <div className={styles.inputGroups}>
         <Input
+          value={data.direction}
+          name="direction"
+          onChange={handleData}
+          placeholder="Направление"
+        />
+      </div>
+      <div className={styles.inputGroups}>
+        <Input
           type="number"
           value={data.course}
           name="course"
@@ -125,7 +148,6 @@ function AddStudent() {
       </div>
       <div className={styles.inputGroups}>
         <Input
-          type="number"
           value={data.group}
           name="group"
           onChange={handleData}

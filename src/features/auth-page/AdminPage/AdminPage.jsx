@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../../components/iu";
 import { useDispatch, useSelector } from "react-redux";
-import { resetIsAdded, signUpUser } from "./../userSlice";
+import { authToken, resetIsAdded, signUpUser } from "./../userSlice";
 import styles from "./AdminPage.module.scss";
+import { decodeJwt } from "./../../../shared/helpers/decodeJwt";
 
 export const AdminPage = () => {
   const dispatch = useDispatch();
 
   const isAdded = useSelector((state) => state.user.isAdded);
-  const error = useSelector((state) => state.user.error);
+
+  const token = useSelector(authToken);
+  const currentUser = decodeJwt(token);
+
   const [data, setData] = useState({
     fullname: "",
     login: "",
@@ -31,6 +35,18 @@ export const AdminPage = () => {
 
   return (
     <div className={styles.AdminPage}>
+      <div className={styles.userInfo}>
+        <div>
+          <span>ФИО:</span> <span> {currentUser.fullname} </span>
+        </div>
+        <div>
+          <span> Организация:</span> <span> {currentUser.department} </span>
+        </div>
+        <div>
+          <span>Должность: </span>
+          <span> {currentUser.jobTitle} </span>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} className={styles.registerForm}>
         <h1>Регистрация работника</h1>
         <Input
