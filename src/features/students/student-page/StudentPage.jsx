@@ -15,6 +15,13 @@ const StudentPage = () => {
   const student = useSelector(getStudent);
   const token = useSelector(authToken);
 
+
+  const currentUser = decodeJwt(token);
+
+  const [changesOn, setChangesOn] = useState(false);
+  const [changesData, setChangesData] = useState({});
+
+
   const currentUser = decodeJwt(token);
 
   const [changesOn, setChangesOn] = useState(false);
