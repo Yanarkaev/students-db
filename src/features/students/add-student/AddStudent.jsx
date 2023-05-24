@@ -18,6 +18,7 @@ function AddStudent() {
     direction: "",
     educationForm: "Очно",
     educationType: "Бюджет",
+    educationLevel: "Бакалавриат",
     changeDate: "",
     details: "По другим причинам",
   });
@@ -44,6 +45,8 @@ function AddStudent() {
 
   const [isValid, setIsValid] = useState(true);
 
+  console.log(data);
+
   useEffect(() => {
     const dataChecker = !!Object.values(data).filter((el) => el.trim() === "")
       .length;
@@ -56,6 +59,7 @@ function AddStudent() {
 
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    console.log(e.target.value);
   };
   const dispatch = useDispatch();
 
@@ -166,6 +170,19 @@ function AddStudent() {
             <option value="Очно">Очно</option>
             <option value="Заочно">Заочно</option>
             <option value="Очно-заочно">Очно-заочно</option>
+          </select>
+        </label>
+        <label className={styles.label} htmlFor="eductionLevel">
+          <span>Уровень обучения</span>
+          <select
+            value={data.educationLevel}
+            onChange={handleSelect}
+            id="eductionLevel"
+            name="educationLevel"
+          >
+            <option value="Бакалавриат">Бакалавриат</option>
+            <option value="Магистратура">Магистратура</option>
+            <option value="Аспирантура">Аспирантура</option>
           </select>
         </label>
         <label className={styles.label} htmlFor="eduction">

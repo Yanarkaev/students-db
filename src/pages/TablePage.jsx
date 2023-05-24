@@ -23,6 +23,7 @@ const TablePage = () => {
     { value: "group", displayValue: "Группа" },
     { value: "educationForm", displayValue: "Форма обучения" },
     { value: "educationType", displayValue: "Тип обучения" },
+    { value: "educationLevel", displayValue: "Уровень обучения" },
     { value: "changeDate", displayValue: "Дата" },
   ];
   const { title } = useParams();
