@@ -101,7 +101,7 @@ export const FilterBar = () => {
       name: "department",
     },
     {
-      placeholder: "Факультет",
+      placeholder: "Факультет/Институт",
       name: "faculty",
     },
     {

@@ -129,7 +129,7 @@ function AddStudent() {
           value={data.faculty}
           name="faculty"
           onChange={handleData}
-          placeholder="Факультет"
+          placeholder="Факультет/Институт"
         />
       </div>
       <div className={styles.inputGroups}>
