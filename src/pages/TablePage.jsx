@@ -17,7 +17,7 @@ const TablePage = () => {
     { value: "gender", displayValue: "Пол" },
     { value: "department", displayValue: "ВУЗ" },
     { value: "status", displayValue: "Статус" },
-    { value: "faculty", displayValue: "Факультет" },
+    { value: "faculty", displayValue: "Факультет/Институт" },
     { value: "direction", displayValue: "Направление" },
     { value: "course", displayValue: "Курс" },
     { value: "group", displayValue: "Группа" },

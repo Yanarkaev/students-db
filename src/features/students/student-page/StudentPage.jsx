@@ -151,7 +151,7 @@ const StudentPage = () => {
           </div>
 
           <div className={styles.infoItem}>
-            <span>Факультет: </span>
+            <span>Факультет/Институт: </span>
             {changesOn ? (
               <Input
                 className={styles.changeInput}
