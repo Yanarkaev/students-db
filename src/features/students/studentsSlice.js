@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   students: [],
@@ -58,7 +58,7 @@ export const addStudents = createAsyncThunk(
 
 export const changeStudentData = createAsyncThunk(
   "students/changeStudent",
-  async ({ id, data }, thunkAPI) => {
+  async ({ workerId, studentId, data }, thunkAPI) => {
     const newData = {
       ...data,
       relocation:
@@ -67,7 +67,7 @@ export const changeStudentData = createAsyncThunk(
     };
     try {
       const response = await fetch(
-        "http://localhost:3001/students/student/" + id,
+        "http://localhost:3001/students/student/" + workerId + "/" + studentId,
         {
           method: "PATCH",
           headers: {
@@ -116,8 +116,10 @@ const studentsSlice = createSlice({
   reducers: {
     filterStudents: (state, action) => {
       state.filteredStudents = (function filter() {
-        let result = [...state.students];
+        let result = current(state.students);
+        console.log(result);
         let keys = Object.keys(action.payload.data);
+        console.log(action.payload.data);
 
         let { endDate, startDate } = action.payload.timerData;
 

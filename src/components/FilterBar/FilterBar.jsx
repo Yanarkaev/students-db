@@ -24,12 +24,13 @@ export const FilterBar = () => {
     gender: false,
     educationForm: false,
     educationType: false,
+    educationLevel: false,
     details: false,
     isActive: false,
     direction: "",
     group: "",
   });
-  console.log(data);
+
   const [timerData, setTimerData] = useState({
     startDate: "",
     endDate: "",
@@ -52,6 +53,16 @@ export const FilterBar = () => {
         [false, "все"],
         ["Бюджет", "Бюджет"],
         ["Коммерция", "Коммерция"],
+      ],
+    },
+    {
+      header: "Уровень обучения",
+      name: "educationLevel",
+      list: [
+        [false, "все"],
+        ["Бакалавриат", "Бакалавриат"],
+        ["Аспирантура", "Аспирантура"],
+        ["Магистратура", "Магистратура"],
       ],
     },
     {
@@ -148,6 +159,7 @@ export const FilterBar = () => {
       gender: false,
       educationForm: false,
       educationType: false,
+      educationLevel: false,
       details: false,
       isActive: false,
       direction: "",
@@ -182,6 +194,8 @@ export const FilterBar = () => {
       educationType: false,
       details: false,
       isActive: false,
+      direction: "",
+      group: "",
     });
     setTimerData({
       startDate: "",

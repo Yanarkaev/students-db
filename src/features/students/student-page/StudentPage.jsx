@@ -14,15 +14,18 @@ const StudentPage = () => {
 
   const student = useSelector(getStudent);
   const token = useSelector(authToken);
+  const workerId = decodeJwt(token).id;
 
   const currentUser = decodeJwt(token);
 
   const [changesOn, setChangesOn] = useState(false);
   const [changesData, setChangesData] = useState({});
-  
+
   useEffect(() => {
     dispatch(getStudentById(studentId));
   }, [dispatch, studentId]);
+
+  console.log(changesData);
 
   useEffect(() => {
     if (student) {
@@ -34,6 +37,7 @@ const StudentPage = () => {
         faculty: student.faculty,
         educationForm: student.educationForm,
         educationType: student.educationType,
+        educationLevel: student.educationLevel,
         status: student.status,
         direction: student.direction,
         relocation: {
@@ -74,7 +78,9 @@ const StudentPage = () => {
 
   const handleSubmit = (e) => {
     setChangesOn(false);
-    dispatch(changeStudentData({ id: student._id, data: changesData }));
+    dispatch(
+      changeStudentData({ workerId, studentId: student._id, data: changesData })
+    );
   };
 
   if (student) {
@@ -187,6 +193,24 @@ const StudentPage = () => {
               </select>
             ) : (
               <b>{student.educationForm}</b>
+            )}
+          </div>
+
+          <div className={styles.infoItem}>
+            <span>Уровень обучения: </span>
+            {changesOn ? (
+              <select
+                value={changesData.educationLevel}
+                onChange={handleChangeData}
+                id="eductionLevel"
+                name="educationLevel"
+              >
+                <option value="Бакалавриат">Бакалавриат</option>
+                <option value="Магистратура">Магистратура</option>
+                <option value="Аспирантура">Аспирантура</option>
+              </select>
+            ) : (
+              <b>{student.educationLevel}</b>
             )}
           </div>
 
